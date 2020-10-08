@@ -25,6 +25,7 @@ HEADERS += \
   ../GL/wglext.h \
   ../GL/wmesa.h \
   _cube.h \
+  _cylinder.h \
   _ply.h \
   colors.h \
   basic_object3d.h \
@@ -38,6 +39,7 @@ HEADERS += \
 
 SOURCES += \
   _cube.cc \
+  _cylinder.cc \
   _ply.cc \
   basic_object3d.cc \
   file_ply_stl.cc \
