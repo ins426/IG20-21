@@ -1,13 +1,12 @@
-#include "_cylinder.h"
+#include "_cone.h"
 
-_cylinder::_cylinder(float Size, int N)
+_cone::_cone(float Size, int N)
 {
-    Vertices.resize(2);
+    Vertices.resize(1);
 
     Vertices[0] = _vertex3f(Size/2,0,0);
-    Vertices[1] = _vertex3f(Size/2,Size/2,0);
 
-    createPoints(N,2);
+    createPoints(N,1);
 
     Vertices.resize(Vertices.size()+2);
     Vertices[Vertices.size()-2] = _vertex3f(0,Size/2,0);

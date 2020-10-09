@@ -40,6 +40,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   switch(Keyevent->key()){
   case Qt::Key_1:Object=OBJECT_TETRAHEDRON;break;
   case Qt::Key_2:Object=OBJECT_CUBE;break;
+  case Qt::Key_3:Object=OBJECT_CONE;break;
   case Qt::Key_4:Object=OBJECT_CYLINDER;break;
   case Qt::Key_6:Object=OBJECT_PLY;Ply.readPly();break;
 
@@ -156,6 +157,7 @@ void _gl_widget::draw_objects()
     switch (Object){
     case OBJECT_TETRAHEDRON:Tetrahedron.draw_point();break;
     case OBJECT_CUBE:Cube.draw_point();break;
+    case OBJECT_CONE:Cone.draw_point();break;
     case OBJECT_CYLINDER:Cylinder.draw_point();break;
     case OBJECT_PLY:Ply.draw_point();break;
     default:break;

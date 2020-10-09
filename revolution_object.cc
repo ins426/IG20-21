@@ -13,27 +13,19 @@ void revolution_object::createRevolutionObject(const float R, const int N, vecto
 
 }
 
-//N: número de perfiles
-//R: radio
-//profile_points: puntos a rotar
-//Vértices del primer perfil ya dados
-void revolution_object::createPoints(const float R,const int N, vector<_vertex3f> profile_points){
-    const float incremento_angulo = DOS_PI/N;
-    float angulo = incremento_angulo;
+void revolution_object::createPoints(const int N, int nrotar){
+    const float INCREMENTO_ANGULO = DOS_PI/N;
+    float angulo = INCREMENTO_ANGULO;
+    int mod = Vertices.size();
+    int indice = mod;
+    Vertices.resize(N*nrotar);
 
-    Vertices.resize(N*profile_points.size());
-
-    for(int i = 0; i < N-profile_points.size(); i++){
-        for(int j = 0; j < profile_points.size(); j++){
-            Vertices[i] = _vertex3f(R*cos(angulo),profile_points[j].y,-R*sin(angulo)); //El índice de los vértices es el número de punto
+    for(int i = 0;i < N-1;i++ ){
+        for(int j = 0; j < nrotar; j++){
+            Vertices[indice] = _vertex3f(Vertices[indice%mod].x*cos(angulo),Vertices[indice%mod].y,-Vertices[indice%mod].x*sin(angulo));
+            indice++;
         }
-        angulo += incremento_angulo;
+        angulo += INCREMENTO_ANGULO;
     }
-
-    //Almaceno al final los extremos
-    int indice = N-profile_points.size();
-    for(int i = 0; i < profile_points.size(); i++){
-           Vertices[indice] = profile_points[i];
-     }
 
 }

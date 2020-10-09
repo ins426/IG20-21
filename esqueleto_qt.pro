@@ -24,6 +24,7 @@ HEADERS += \
   ../GL/wglew.h \
   ../GL/wglext.h \
   ../GL/wmesa.h \
+  _cone.h \
   _cube.h \
   _cylinder.h \
   _ply.h \
@@ -38,6 +39,7 @@ HEADERS += \
   window.h
 
 SOURCES += \
+  _cone.cc \
   _cube.cc \
   _cylinder.cc \
   _ply.cc \

@@ -8,7 +8,7 @@ class revolution_object:public _object3D
 public:
     revolution_object();
     void createRevolutionObject(const float R, const int N, vector<_vertex3f> profile_points);
-    void createPoints(const float R, const int N, vector<_vertex3f> profile_points);
+    void createPoints(const int N, int nrotar);
 
 };
 
