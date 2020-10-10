@@ -7,8 +7,10 @@ class revolution_object:public _object3D
 {
 public:
     revolution_object();
-    void createRevolutionObject(const float R, const int N, vector<_vertex3f> profile_points);
-    void createPoints(const int N, int nrotar);
+    void crearRevolutionObject(const int N);
+    void rotarPuntos(const int N, int num_rotar);
+    void crearCara(const int N, int num_rotar);
+    void crearTapaSuperior(int nrotar, int N);
 
 };
 

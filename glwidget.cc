@@ -170,6 +170,8 @@ void _gl_widget::draw_objects()
     switch (Object){
     case OBJECT_TETRAHEDRON:Tetrahedron.draw_line();break;
     case OBJECT_CUBE:Cube.draw_line();break;
+    case OBJECT_CYLINDER:Cylinder.draw_line();break;
+    case OBJECT_CONE:Cone.draw_line();break;
     case OBJECT_PLY:Ply.draw_line();break;
     default:break;
     }
