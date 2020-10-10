@@ -21,6 +21,7 @@
 #include "_cube.h"
 #include "_cone.h"
 #include "_cylinder.h"
+#include "_sphere.h"
 #include "_ply.h"
 
 
@@ -36,7 +37,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE} _object;
 }
 
 class _window;
@@ -78,6 +79,7 @@ private:
   _cylinder Cylinder;
   _ply Ply;
   _cone Cone;
+  _sphere Sphere;
 
   _gl_widget_ne::_object Object;
 

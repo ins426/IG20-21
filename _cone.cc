@@ -10,5 +10,4 @@ _cone::_cone(float Size, int N)
 
     crearRevolutionObject(N);
 
-
 }

@@ -15,6 +15,7 @@ public:
 
 };
 
-const float DOS_PI = 2*3.14159265358979;
+const float PI = 3.14159265358979;
+const float DOS_PI = 2*PI;
 
 #endif // REVOLUTION_OBJECT_H

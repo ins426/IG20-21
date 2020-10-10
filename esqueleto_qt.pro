@@ -28,6 +28,7 @@ HEADERS += \
   _cube.h \
   _cylinder.h \
   _ply.h \
+  _sphere.h \
   colors.h \
   basic_object3d.h \
   file_ply_stl.h \
@@ -43,6 +44,7 @@ SOURCES += \
   _cube.cc \
   _cylinder.cc \
   _ply.cc \
+  _sphere.cc \
   basic_object3d.cc \
   file_ply_stl.cc \
   object3d.cc \

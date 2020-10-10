@@ -36,7 +36,7 @@ void revolution_object::crearRevolutionObject(const int N){
     Vertices.resize(Vertices.size()*N);
     rotarPuntos(N,num_rotar);
 
-    Triangles.resize(2*N);
+    Triangles.resize(num_rotar*N);
     crearCara(N,num_rotar);
 
     if(tapa_superior){
