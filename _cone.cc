@@ -8,7 +8,7 @@ _cone::_cone(float Size, int N)
     Vertices[1] = _vertex3f(0,Size/2,0);
     Vertices[2]= _vertex3f(0,0,0);
 
-    createRevolutionObject(N);
+    crearRevolutionObject(N);
 
 
 }

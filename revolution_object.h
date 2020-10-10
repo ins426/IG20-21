@@ -10,7 +10,8 @@ public:
     void crearRevolutionObject(const int N);
     void rotarPuntos(const int N, int num_rotar);
     void crearCara(const int N, int num_rotar);
-    void crearTapaSuperior(int nrotar, int N);
+    void crearTapaSuperior(const int N, int num_rotar);
+    void crearTapaInferior(int N,int num_rotar);
 
 };
 
