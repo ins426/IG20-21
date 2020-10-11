@@ -12,6 +12,7 @@ public:
     void crearCara(const int N, int num_rotar);
     void crearTapaSuperior(const int N, int num_rotar);
     void crearTapaInferior(int N,int num_rotar);
+    void cambiarSentido();
 
 };
 

@@ -6,12 +6,22 @@ revolution_object::revolution_object()
 
 }
 
+//sentido 0: mi sentido
+//sentido 1: al revés
 void revolution_object::crearRevolutionObject(const int N){
     bool tapa_superior = false;
     bool tapa_inferior = false;
     _vertex3f vsuperior;
     _vertex3f vinferior;
     int num_rotar = Vertices.size();
+    int sentido = 0;
+
+    if(Vertices[0].x == 0)
+        sentido = 1;
+
+    if(sentido == 1){
+        cambiarSentido();
+    }
 
     if(Vertices[Vertices.size()-1].x == 0.0){
         tapa_inferior = true;
@@ -36,8 +46,10 @@ void revolution_object::crearRevolutionObject(const int N){
     Vertices.resize(Vertices.size()*N);
     rotarPuntos(N,num_rotar);
 
-    Triangles.resize(num_rotar*N);
-    crearCara(N,num_rotar);
+    if(num_rotar > 1){
+        Triangles.resize(num_rotar*N);
+        crearCara(N,num_rotar);
+    }
 
     if(tapa_superior){
         Vertices.resize(Vertices.size()+1);
@@ -100,6 +112,15 @@ void revolution_object::crearTapaInferior(int N,int num_rotar){
     }
 }
 
+void revolution_object::cambiarSentido(){
+    int num_intercambios = Vertices.size()/2;
+
+    for(int i = 0; i < num_intercambios;i++){
+        _vertex3f aux = Vertices[i];
+        Vertices[i] = Vertices[Vertices.size()-1-i];
+        Vertices[Vertices.size()-1-i] = aux;
+    }
+}
 
 
 
