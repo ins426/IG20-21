@@ -29,19 +29,13 @@ void revolution_object::crearRevolutionObject(const int N){
         Vertices.erase(Vertices.begin()+Vertices.size()-1);
     }
 
-    if(Vertices[Vertices.size()-1].x == 0.0 && Vertices[Vertices.size()-2].y != 0){
+    if(Vertices[Vertices.size()-1].x == 0.0){
         tapa_superior = true;
         vsuperior = Vertices[Vertices.size()-1];
         Vertices.erase(Vertices.begin()+Vertices.size()-1);
     }
 
-    if(tapa_superior && tapa_inferior){
-       num_rotar -= 2;
-    }
-    else{
-        if((tapa_inferior && !tapa_superior) || (tapa_superior && !tapa_inferior))
-            num_rotar -= 1;
-    }
+    num_rotar = Vertices.size();
 
     Vertices.resize(Vertices.size()*N);
     rotarPuntos(N,num_rotar);
@@ -92,22 +86,24 @@ void revolution_object::crearCara(const int N, int num_rotar){
     }
 }
 
+//Triángulos impares: i = 1 se empieza
 void revolution_object::crearTapaSuperior(int N,int num_rotar){
     int indice = Triangles.size()-N;
     int num_triangulos = N*num_rotar;
 
-    for(int i = 1; i <= num_triangulos; i+=2){
-        Triangles[indice] = _vertex3ui(i,(i+2)%num_triangulos, Vertices.size()-1);
+    for(int i = 1; i <= num_triangulos; i+=num_rotar){
+        Triangles[indice] = _vertex3ui(i,(i+num_rotar)%num_triangulos, Vertices.size()-1);
         indice++;
     }
 }
 
+//Triángulos pares: i = 0 se empieza
 void revolution_object::crearTapaInferior(int N,int num_rotar){
     int indice = Triangles.size()-N;
     int num_triangulos = N*num_rotar;
 
-    for(int i = 0; i < num_triangulos; i+=2){
-        Triangles[indice] = _vertex3ui(i,(i+2)%num_triangulos, Vertices.size()-1);
+    for(int i = 0; i < num_triangulos; i+=num_rotar){
+        Triangles[indice] = _vertex3ui(i,(i+num_rotar)%num_triangulos, Vertices.size()-1);
         indice++;
     }
 }
