@@ -2,13 +2,12 @@
 
 _ply::_ply()
 {
-
 }
 
-bool _ply::readPly(){
+bool _ply::readPly(const string &File_name){
      _file_ply file_ply;
 
-     if(file_ply.open("/home/ines/Escritorio/Universidad/3o/IG/Prácticas/practicas/ply_models/cow.ply")){
+     if(file_ply.open(File_name)){
        file_ply.read(Vertices,Triangles);
        file_ply.close();
 

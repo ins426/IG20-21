@@ -29,7 +29,7 @@ _cube::_cube(float Size)
     Triangles[5]=_vertex3ui(6,3,2);
 
     //Left
-    Triangles[6]=_vertex3ui(2,6,0);
+    Triangles[6]=_vertex3ui(6,2,0);
     Triangles[7]=_vertex3ui(6,0,4);
 
     //Top

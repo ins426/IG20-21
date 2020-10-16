@@ -43,40 +43,40 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_3:Object=OBJECT_CONE;break;
   case Qt::Key_4:Object=OBJECT_CYLINDER;break;
   case Qt::Key_5:Object=OBJECT_SPHERE;break;
-  case Qt::Key_6:Object=OBJECT_PLY;Ply.readPly();break;
+  case Qt::Key_6:Object=OBJECT_PLY;break;
 
   case Qt::Key_P:Draw_point=!Draw_point;
-       if(Draw_line)
-           Draw_line = !Draw_line;
-       if(Draw_fill)
-           Draw_fill = !Draw_fill;
-       if(Draw_chess)
-           Draw_chess= !Draw_chess;
-  break;
-  case Qt::Key_L:Draw_line=!Draw_line;
-      if(Draw_point)
-          Draw_point = !Draw_point;
-      if(Draw_fill)
-          Draw_fill = !Draw_fill;
-      if(Draw_chess)
-          Draw_chess= !Draw_chess;
-  break;
-  case Qt::Key_F:Draw_fill=!Draw_fill;
-      if(Draw_line)
-          Draw_line = !Draw_line;
-      if(Draw_point)
-          Draw_point = !Draw_point;
-      if(Draw_chess)
-          Draw_chess= !Draw_chess;
-  break;
-  case Qt::Key_C:Draw_chess=!Draw_chess;
-      if(Draw_line)
-          Draw_line = !Draw_line;
-      if(Draw_fill)
-          Draw_fill = !Draw_fill;
-      if(Draw_point)
-          Draw_point= !Draw_point;
-  break;
+         if(Draw_line)
+             Draw_line = !Draw_line;
+         if(Draw_fill)
+             Draw_fill = !Draw_fill;
+         if(Draw_chess)
+             Draw_chess= !Draw_chess;
+    break;
+    case Qt::Key_L:Draw_line=!Draw_line;
+        if(Draw_point)
+            Draw_point = !Draw_point;
+        if(Draw_fill)
+            Draw_fill = !Draw_fill;
+        if(Draw_chess)
+            Draw_chess= !Draw_chess;
+    break;
+    case Qt::Key_F:Draw_fill=!Draw_fill;
+        if(Draw_line)
+            Draw_line = !Draw_line;
+        if(Draw_point)
+            Draw_point = !Draw_point;
+        if(Draw_chess)
+            Draw_chess= !Draw_chess;
+    break;
+    case Qt::Key_C:Draw_chess=!Draw_chess;
+        if(Draw_line)
+            Draw_line = !Draw_line;
+        if(Draw_fill)
+            Draw_fill = !Draw_fill;
+        if(Draw_point)
+            Draw_point= !Draw_point;
+    break;
 
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;

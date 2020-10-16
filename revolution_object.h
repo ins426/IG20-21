@@ -3,7 +3,7 @@
 
 #include "object3d.h"
 
-class revolution_object:public _object3D
+class revolution_object: virtual public _object3D
 {
 public:
     revolution_object();

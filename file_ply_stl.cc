@@ -77,7 +77,7 @@ void _file_ply::read(vector<_vertex3f> &Coordinates, vector<_vertex3ui> &Positio
         get_token(Line_stream,Token);
         if(Token=="vertex"){
           get_token(Line_stream,Token);
-          Coordinates.resize(stoi(Token)*3);
+          Coordinates.resize(stoi(Token));
           do{
             get_new_line(File,Line_stream);
             get_token(Line_stream,Token);
@@ -85,13 +85,13 @@ void _file_ply::read(vector<_vertex3f> &Coordinates, vector<_vertex3ui> &Positio
           get_token(Line_stream,Token);
           if(Token=="face"){
             get_token(Line_stream,Token);
-            Positions.resize(stoi(Token)*3);
+            Positions.resize(stoi(Token));
             do{
               get_new_line(File,Line_stream);
               get_token(Line_stream,Token);
             } while (Token!="end_header");
             Pos=0;
-            for (unsigned int i=0;i<Coordinates.size()/3;i++){
+            for (unsigned int i=0;i<Coordinates.size();i++){
               get_new_line(File,Line_stream);
               //
               get_token(Line_stream,Token);
@@ -102,7 +102,7 @@ void _file_ply::read(vector<_vertex3f> &Coordinates, vector<_vertex3ui> &Positio
               Coordinates[i].z=stof(Token);
             }
             Pos=0;
-            for (unsigned int i=0;i<Positions.size()/3;i++){
+            for (unsigned int i=0;i<Positions.size();i++){
               get_new_line(File,Line_stream);
               //
               get_token(Line_stream,Token);

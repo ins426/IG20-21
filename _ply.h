@@ -3,11 +3,11 @@
 
 #include "object3d.h"
 #include "file_ply_stl.h"
-class _ply:public _object3D
+class _ply: virtual public _object3D
 {
 public:
     _ply();
-    bool readPly();
+    bool readPly(const string &File_name);
 };
 
 #endif // _PLY_H

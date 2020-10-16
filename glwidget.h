@@ -22,7 +22,7 @@
 #include "_cone.h"
 #include "_cylinder.h"
 #include "_sphere.h"
-#include "_ply.h"
+#include "_revolution_ply.h"
 
 
 namespace _gl_widget_ne {
@@ -77,7 +77,7 @@ private:
   _tetrahedron Tetrahedron;
   _cube Cube;
   _cylinder Cylinder;
-  _ply Ply;
+  _revolution_ply Ply;
   _cone Cone;
   _sphere Sphere;
 
