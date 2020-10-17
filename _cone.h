@@ -6,7 +6,7 @@
 class _cone: public revolution_object
 {
 public:
-    _cone(float Size=1.0, int N = 10);
+    _cone(float Size=1.0, int N = 50);
 };
 
 #endif // _CONE_H

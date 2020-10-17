@@ -6,7 +6,7 @@
 class _ply: virtual public _object3D
 {
 public:
-    _ply();
+    _ply(string File_name = "/home/ines/Escritorio/Universidad/3o/IG/Prácticas/practicas/ply_models/mio.ply");
     bool readPly(const string &File_name);
 };
 

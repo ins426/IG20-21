@@ -7,7 +7,7 @@
 class _revolution_ply: public revolution_object, _ply
 {
 public:
-    _revolution_ply();
+    _revolution_ply(string File_name = "/home/ines/Escritorio/Universidad/3o/IG/Prácticas/practicas/ply_models/mio.ply");
     void rota_ply(const string &File_name);
 };
 

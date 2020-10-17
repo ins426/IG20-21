@@ -1,8 +1,8 @@
 #include "_revolution_ply.h"
 
-_revolution_ply::_revolution_ply()
+_revolution_ply::_revolution_ply(string File_name)
 {
-    rota_ply("/home/ines/Escritorio/Universidad/3o/IG/Prácticas/practicas/ply_models/mio.ply");
+    rota_ply(File_name);
 }
 
 void _revolution_ply::rota_ply(const string &File_name){

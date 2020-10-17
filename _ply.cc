@@ -1,7 +1,8 @@
 #include "_ply.h"
 
-_ply::_ply()
+_ply::_ply(string File_name)
 {
+    readPly(File_name);
 }
 
 bool _ply::readPly(const string &File_name){
