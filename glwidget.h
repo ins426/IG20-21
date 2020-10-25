@@ -69,6 +69,9 @@ protected:
   void initializeGL() Q_DECL_OVERRIDE;
   void keyPressEvent(QKeyEvent *Keyevent) Q_DECL_OVERRIDE;
 
+public slots:
+    void mode_points_slot(int State);
+    void mode_lines_slot(int State);
 
 private:
   _window *Window;

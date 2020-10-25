@@ -17,6 +17,10 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QGuiApplication>
+#include <QLabel>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QGroupBox>
 
 
 class _gl_widget;
@@ -34,9 +38,14 @@ class _window : public QMainWindow
 
 public:
     _window();
+    void change_state_point_widget(bool Checked);
+    void change_state_line_widget(bool Checked);
 
 private:
-  _gl_widget *GL_widget;
+  _gl_widget *GL_widget=nullptr;
+
+  QCheckBox *Checkbox_layout1= nullptr;
+  QCheckBox *Checkbox_layout2= nullptr;
 };
 
 #endif

@@ -27,6 +27,20 @@ _gl_widget::_gl_widget(_window *Window1):Window(Window1)
   setFocusPolicy(Qt::StrongFocus);
 }
 
+void _gl_widget::mode_points_slot(int State){
+    if(State==Qt::Checked)Draw_point=true;
+    else Draw_point=false;
+
+    update();
+}
+
+void _gl_widget::mode_lines_slot(int State){
+    if(State==Qt::Checked)Draw_line=true;
+    else Draw_line=false;
+
+    update();
+}
+
 
 /*****************************************************************************//**
  * Evento tecla pulsada
@@ -45,38 +59,20 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_5:Object=OBJECT_SPHERE;break;
   case Qt::Key_6:Object=OBJECT_PLY;break;
 
-  case Qt::Key_P:Draw_point=!Draw_point;
-         if(Draw_line)
-             Draw_line = !Draw_line;
-         if(Draw_fill)
-             Draw_fill = !Draw_fill;
-         if(Draw_chess)
-             Draw_chess= !Draw_chess;
-    break;
-    case Qt::Key_L:Draw_line=!Draw_line;
-        if(Draw_point)
-            Draw_point = !Draw_point;
-        if(Draw_fill)
-            Draw_fill = !Draw_fill;
-        if(Draw_chess)
-            Draw_chess= !Draw_chess;
-    break;
-    case Qt::Key_F:Draw_fill=!Draw_fill;
-        if(Draw_line)
-            Draw_line = !Draw_line;
-        if(Draw_point)
-            Draw_point = !Draw_point;
-        if(Draw_chess)
-            Draw_chess= !Draw_chess;
-    break;
-    case Qt::Key_C:Draw_chess=!Draw_chess;
-        if(Draw_line)
-            Draw_line = !Draw_line;
-        if(Draw_fill)
-            Draw_fill = !Draw_fill;
-        if(Draw_point)
-            Draw_point= !Draw_point;
-    break;
+  case Qt::Key_P:
+      Draw_point=!Draw_point;
+      if(Draw_point==true)Window->change_state_point_widget(true);
+      else Window->change_state_point_widget(false);
+  break;
+  case Qt::Key_L:
+      Draw_line=!Draw_line;
+      if(Draw_line==true)Window->change_state_line_widget(true);
+      else Window->change_state_line_widget(false);
+  break;
+  case Qt::Key_F:Draw_fill=!Draw_fill;
+  break;
+  case Qt::Key_C:Draw_chess=!Draw_chess;
+  break;
 
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
@@ -279,5 +275,5 @@ void _gl_widget::initializeGL()
   Draw_fill=false;
   Draw_chess=false;
 
-   _gl_widget_ne::_object Object = OBJECT_TETRAHEDRON;
+  Object = OBJECT_TETRAHEDRON;
 }

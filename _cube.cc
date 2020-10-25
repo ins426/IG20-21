@@ -4,15 +4,15 @@ _cube::_cube(float Size)
 {
     Vertices.resize(8);
 
-    Vertices[0]=_vertex3f(-Size/2,Size/2,Size/2);
+    Vertices[0]=_vertex3f(0,Size/2,Size/2);
     Vertices[1]=_vertex3f(Size/2,Size/2,Size/2);
-    Vertices[2]=_vertex3f(-Size/2,-Size/2,Size/2);
-    Vertices[3]=_vertex3f(Size/2,-Size/2,Size/2);
+    Vertices[2]=_vertex3f(0,0,Size/2);
+    Vertices[3]=_vertex3f(Size/2,0,Size/2);
 
-    Vertices[4]=_vertex3f(-Size/2,Size/2,-Size/2);
-    Vertices[5]=_vertex3f(Size/2,Size/2,-Size/2);
-    Vertices[6]=_vertex3f(-Size/2,-Size/2,-Size/2);
-    Vertices[7]=_vertex3f(Size/2,-Size/2,-Size/2);
+    Vertices[4]=_vertex3f(0,Size/2,0);
+    Vertices[5]=_vertex3f(Size/2,Size/2,0);
+    Vertices[6]=_vertex3f(0,0,0);
+    Vertices[7]=_vertex3f(Size/2,0,0);
 
     Triangles.resize(12);
 
