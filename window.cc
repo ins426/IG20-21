@@ -51,8 +51,12 @@ _window::_window()
 
     Checkbox_layout2= new QCheckBox;
     connect(Checkbox_layout2,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_lines_slot(int)));
-    QCheckBox *Checkbox_layout3= new QCheckBox;
-    QCheckBox *Checkbox_layout4= new QCheckBox;
+
+    Checkbox_layout3= new QCheckBox;
+    connect(Checkbox_layout2,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_fill_slot(int)));
+
+    Checkbox_layout4= new QCheckBox;
+    connect(Checkbox_layout2,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_chess_slot(int)));
 
     Gridlayout_visualization->addWidget(Label1,0,0,Qt::AlignRight);
     Gridlayout_visualization->addWidget(Checkbox_layout1,0,1);
@@ -80,13 +84,16 @@ _window::_window()
     QWidget *Objects_widget = new QWidget;
     QVBoxLayout *Objects_layout = new QVBoxLayout;
 
-    QComboBox *Combobox_objects = new QComboBox;
+    Combobox_objects = new QComboBox;
+
+    connect(Combobox_objects,SIGNAL(activated(int)),GL_widget,SLOT(mode_objects_slot(int)));
 
     Combobox_objects->addItem("Tetrahedron");
     Combobox_objects->addItem("Cube");
     Combobox_objects->addItem("Cone");
     Combobox_objects->addItem("Cylinder");
     Combobox_objects->addItem("Sphere");
+    Combobox_objects->addItem("Ply");
 
     Objects_layout->addWidget(Combobox_objects);
     Objects_layout->addStretch();
@@ -155,6 +162,26 @@ void _window::change_state_line_widget(bool Checked){
     if (Checked == true) Checkbox_layout2->setCheckState(Qt::Checked);
     else Checkbox_layout2->setCheckState(Qt::Unchecked);
     Checkbox_layout2->blockSignals(false);
+}
+
+void _window::change_state_fill_widget(bool Checked){
+    Checkbox_layout3->blockSignals(true);
+    if (Checked == true) Checkbox_layout3->setCheckState(Qt::Checked);
+    else Checkbox_layout3->setCheckState(Qt::Unchecked);
+    Checkbox_layout3->blockSignals(false);
+}
+
+void _window::change_state_chess_widget(bool Checked){
+    Checkbox_layout4->blockSignals(true);
+    if (Checked == true) Checkbox_layout4->setCheckState(Qt::Checked);
+    else Checkbox_layout4->setCheckState(Qt::Unchecked);
+    Checkbox_layout4->blockSignals(false);
+}
+
+void _window::change_index_object_widget(int Index){
+    Checkbox_layout4->blockSignals(true);
+    Combobox_objects->setCurrentIndex(Index);
+    Checkbox_layout4->blockSignals(false);
 }
 
 

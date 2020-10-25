@@ -41,6 +41,33 @@ void _gl_widget::mode_lines_slot(int State){
     update();
 }
 
+void _gl_widget::mode_fill_slot(int State){
+    if(State==Qt::Checked)Draw_fill=true;
+    else Draw_fill=false;
+
+    update();
+}
+
+void _gl_widget::mode_chess_slot(int State){
+    if(State==Qt::Checked)Draw_chess=true;
+    else Draw_chess=false;
+
+    update();
+}
+
+void _gl_widget::mode_objects_slot(int Index){
+    switch(Index){
+    case 0:Object=OBJECT_TETRAHEDRON;break;
+    case 1:Object=OBJECT_CUBE;break;
+    case 2:Object=OBJECT_CONE;break;
+    case 3:Object=OBJECT_CYLINDER;break;
+    case 4:Object=OBJECT_SPHERE;break;
+    case 5:Object=OBJECT_PLY;break;
+   }
+
+    update();
+}
+
 
 /*****************************************************************************//**
  * Evento tecla pulsada
@@ -52,12 +79,30 @@ void _gl_widget::mode_lines_slot(int State){
 void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
 {
   switch(Keyevent->key()){
-  case Qt::Key_1:Object=OBJECT_TETRAHEDRON;break;
-  case Qt::Key_2:Object=OBJECT_CUBE;break;
-  case Qt::Key_3:Object=OBJECT_CONE;break;
-  case Qt::Key_4:Object=OBJECT_CYLINDER;break;
-  case Qt::Key_5:Object=OBJECT_SPHERE;break;
-  case Qt::Key_6:Object=OBJECT_PLY;break;
+  case Qt::Key_1:
+      Window->change_index_object_widget(0);
+      Object=OBJECT_TETRAHEDRON;
+  break;
+  case Qt::Key_2:
+       Window->change_index_object_widget(1);
+      Object=OBJECT_CUBE;
+  break;
+  case Qt::Key_3:
+       Window->change_index_object_widget(2);
+      Object=OBJECT_CONE;
+  break;
+  case Qt::Key_4:
+       Window->change_index_object_widget(3);
+      Object=OBJECT_CYLINDER;
+  break;
+  case Qt::Key_5:
+       Window->change_index_object_widget(4);
+      Object=OBJECT_SPHERE;
+  break;
+  case Qt::Key_6:
+      Window->change_index_object_widget(5);
+      Object=OBJECT_PLY;
+  break;
 
   case Qt::Key_P:
       Draw_point=!Draw_point;
@@ -69,9 +114,15 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       if(Draw_line==true)Window->change_state_line_widget(true);
       else Window->change_state_line_widget(false);
   break;
-  case Qt::Key_F:Draw_fill=!Draw_fill;
+  case Qt::Key_F:
+      Draw_fill=!Draw_fill;
+      if(Draw_fill==true)Window->change_state_fill_widget(true);
+      else Window->change_state_fill_widget(false);
   break;
-  case Qt::Key_C:Draw_chess=!Draw_chess;
+  case Qt::Key_C:
+      Draw_chess=!Draw_chess;
+      if(Draw_chess==true)Window->change_state_chess_widget(true);
+      else Window->change_state_line_widget(false);
   break;
 
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;

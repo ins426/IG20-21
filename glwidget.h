@@ -72,6 +72,9 @@ protected:
 public slots:
     void mode_points_slot(int State);
     void mode_lines_slot(int State);
+    void mode_fill_slot(int State);
+    void mode_chess_slot(int State);
+    void mode_objects_slot(int Index);
 
 private:
   _window *Window;
