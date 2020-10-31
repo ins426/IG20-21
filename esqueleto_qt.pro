@@ -27,8 +27,10 @@ HEADERS += \
   _cone.h \
   _cube.h \
   _cylinder.h \
+  _leg.h \
   _ply.h \
   _revolution_ply.h \
+  _semisphere.h \
   _sphere.h \
   colors.h \
   basic_object3d.h \
@@ -44,8 +46,10 @@ SOURCES += \
   _cone.cc \
   _cube.cc \
   _cylinder.cc \
+  _leg.cc \
   _ply.cc \
   _revolution_ply.cc \
+  _semisphere.cc \
   _sphere.cc \
   basic_object3d.cc \
   file_ply_stl.cc \
