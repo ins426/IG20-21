@@ -32,10 +32,13 @@ HEADERS += \
   _sphere.h \
   colors.h \
   basic_object3d.h \
+  eje.h \
+  eje_rueda.h \
   file_ply_stl.h \
   object3d.h \
   axis.h \
   revolution_object.h \
+  rueda.h \
   tetrahedron.h \
   glwidget.h \
   window.h
@@ -48,10 +51,13 @@ SOURCES += \
   _revolution_ply.cc \
   _sphere.cc \
   basic_object3d.cc \
+  eje.cc \
+  eje_rueda.cc \
   file_ply_stl.cc \
   object3d.cc \
   axis.cc \
   revolution_object.cc \
+  rueda.cc \
   tetrahedron.cc \
   main.cc \
   glwidget.cc \

@@ -34,6 +34,7 @@ _window::_window()
     QTabWidget *Tab_widget = new QTabWidget; //Para incluir una página con pestañas
     Tab_widget->setMaximumWidth(300);
 
+
 /***************************************************************/
     QWidget *Visualization_widget = new QWidget;
     QVBoxLayout *Visualization_layout = new QVBoxLayout;
@@ -53,10 +54,10 @@ _window::_window()
     connect(Checkbox_layout2,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_lines_slot(int)));
 
     Checkbox_layout3= new QCheckBox;
-    connect(Checkbox_layout2,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_fill_slot(int)));
+    connect(Checkbox_layout3,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_fill_slot(int)));
 
     Checkbox_layout4= new QCheckBox;
-    connect(Checkbox_layout2,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_chess_slot(int)));
+    connect(Checkbox_layout4,SIGNAL(stateChanged(int)),GL_widget,SLOT(mode_chess_slot(int)));
 
     Gridlayout_visualization->addWidget(Label1,0,0,Qt::AlignRight);
     Gridlayout_visualization->addWidget(Checkbox_layout1,0,1);
@@ -102,6 +103,9 @@ _window::_window()
     Tab_widget->addTab(Objects_widget,"Objects");
 
 /**************************************************************/
+
+
+/**************************************************************/
     //Tab_widget->addTab() Aquí iriía la de objetos
 
     QHBoxLayout *Horizontal_main = new QHBoxLayout;
@@ -138,6 +142,7 @@ _window::_window()
       Exit->setShortcut(tr("Ctrl+Q"));
       Exit->setToolTip(tr("Exit the application"));
       connect(Exit, SIGNAL(triggered()), this, SLOT(close()));
+
 
   //  // menus
       QMenu *File_menu=menuBar()->addMenu(tr("&File"));

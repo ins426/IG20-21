@@ -103,6 +103,16 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       Window->change_index_object_widget(5);
       Object=OBJECT_PLY;
   break;
+  case Qt::Key_8:
+      Object=RUEDA;
+  break;
+  case Qt::Key_9:
+      Object=EJE;
+  break;
+  case Qt::Key_0:
+      Object=EJE_RUEDA;
+  break;
+
 
   case Qt::Key_P:
       Draw_point=!Draw_point;
@@ -209,6 +219,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_point();break;
     case OBJECT_SPHERE:Sphere.draw_point();break;
     case OBJECT_PLY:Ply.draw_point();break;
+    case RUEDA:Rueda.draw_point();break;
     default:break;
     }
   }
@@ -223,6 +234,9 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_line();break;
     case OBJECT_SPHERE:Sphere.draw_line();break;
     case OBJECT_PLY:Ply.draw_line();break;
+    case RUEDA:Rueda.draw_line();break;
+    case EJE:Eje.draw_line();break;
+    case EJE_RUEDA:Eje_rueda.draw_line();
     default:break;
     }
   }

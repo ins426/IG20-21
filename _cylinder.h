@@ -6,7 +6,7 @@
 class _cylinder:public revolution_object
 {
 public:
-    _cylinder(float Size=1.0, int N = 50);
+    _cylinder(float Size=1.0, int N = 40);
 };
 
 #endif // _CYLINDER_H
