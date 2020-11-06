@@ -24,14 +24,28 @@ HEADERS += \
   ../GL/wglew.h \
   ../GL/wglext.h \
   ../GL/wmesa.h \
+  _arm.h \
+  _arm_hand.h \
+  _bag.h \
+  _body_legs.h \
   _cone.h \
   _cube.h \
   _cylinder.h \
+  _glass.h \
+  _hand.h \
+  _head.h \
+  _head_glass.h \
+  _hierarchical_model.h \
   _leg.h \
+  _leg_wheel.h \
   _ply.h \
   _revolution_ply.h \
   _semisphere.h \
   _sphere.h \
+  _torso.h \
+  _upper_body.h \
+  _wheel.h \
+  _whole_body.h \
   colors.h \
   basic_object3d.h \
   file_ply_stl.h \
@@ -43,16 +57,30 @@ HEADERS += \
   window.h
 
 SOURCES += \
+  _arm.cc \
+  _arm_hand.cc \
+  _bag.cc \
+  _body_legs.cc \
   _cone.cc \
   _cube.cc \
   _cylinder.cc \
-  _leg.cc \
+  _glass.cc \
+  _hand.cc \
+  _head.cc \
+  _head_glass.cc \
+  _hierarchical_model.cc \
+  _leg_wheel.cc \
   _ply.cc \
   _revolution_ply.cc \
   _semisphere.cc \
   _sphere.cc \
+  _torso.cc \
+  _upper_body.cc \
+  _wheel.cc \
+  _whole_body.cc \
   basic_object3d.cc \
   file_ply_stl.cc \
+  leg.cc \
   object3d.cc \
   axis.cc \
   revolution_object.cc \

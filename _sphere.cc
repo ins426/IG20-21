@@ -2,7 +2,7 @@
 
 _sphere::_sphere(float Size, int N )
 {
-    int numero_puntos = 180;
+    int numero_puntos = 20;
 
     Vertices.resize(numero_puntos);
     for(int i=0; i < numero_puntos; i++)

@@ -24,8 +24,8 @@
 #include "_sphere.h"
 #include "_semisphere.h"
 #include "_revolution_ply.h"
-
-
+#include "_whole_body.h"
+#include "_hierarchical_model.h"
 namespace _gl_widget_ne {
 
   const float X_MIN=-.1;
@@ -38,7 +38,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_SEMISPHERE} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_BODY} _object;
 }
 
 class _window;
@@ -63,13 +63,11 @@ public:
   void draw_axis();
   void draw_objects();
 
-
 protected:
   void resizeGL(int Width1, int Height1) Q_DECL_OVERRIDE;
   void paintGL() Q_DECL_OVERRIDE;
   void initializeGL() Q_DECL_OVERRIDE;
   void keyPressEvent(QKeyEvent *Keyevent) Q_DECL_OVERRIDE;
-
 
 private:
   _window *Window;
@@ -82,6 +80,8 @@ private:
   _cone Cone;
   _sphere Sphere;
   _semisphere Semisphere;
+
+  _hierarchical_model Body;
 
   _gl_widget_ne::_object Object;
 
