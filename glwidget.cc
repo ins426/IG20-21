@@ -134,6 +134,10 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       if(Draw_chess==true)Window->change_state_chess_widget(true);
       else Window->change_state_line_widget(false);
   break;
+  case Qt::Key_D:tick();break;
+  case Qt::Key_Q:Rueda.increase_speed();break;
+  case Qt::Key_W:Rueda.decrease_speed();break;
+  case Qt::Key_A:animation();break;
 
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
@@ -341,4 +345,22 @@ void _gl_widget::initializeGL()
   Draw_chess=false;
 
   Object = OBJECT_TETRAHEDRON;
+
+  Timer.setInterval(0);
+  connect(&Timer,SIGNAL(timeout()),this,SLOT(tick()));
+
+  Animation = false;
+}
+
+void _gl_widget::tick(){
+    //update parameters
+    Rueda.update_alpha();
+    update(); //Actualización de imagen
+}
+
+void _gl_widget::animation(){
+    Animation=!Animation;
+
+    if(Animation==true)Timer.start();
+    else Timer.stop();
 }

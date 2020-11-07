@@ -13,6 +13,8 @@
 #include <GL/gl.h>
 #include <QOpenGLWidget>
 #include <QKeyEvent>
+#include <QTimer>
+
 #include <iostream>
 #include "vertex.h"
 #include "colors.h"
@@ -64,7 +66,7 @@ public:
 
   void draw_axis();
   void draw_objects();
-
+  void animation();
 
 protected:
   void resizeGL(int Width1, int Height1) Q_DECL_OVERRIDE;
@@ -79,6 +81,8 @@ public slots:
     void mode_chess_slot(int State);
     void mode_objects_slot(int Index);
 
+private slots:
+     void tick();
 private:
   _window *Window;
 
@@ -96,10 +100,14 @@ private:
 
   _gl_widget_ne::_object Object;
 
+  QTimer Timer;
+
   bool Draw_point;
   bool Draw_line;
   bool Draw_fill;
   bool Draw_chess;
+
+  bool  Animation;
 
   float Observer_angle_x;
   float Observer_angle_y;
