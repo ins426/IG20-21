@@ -10,6 +10,8 @@ public:
 
     void draw_point();
     void draw_line();
+
+
 };
 
 #endif // _HAND_H

@@ -8,7 +8,8 @@ _body_legs::_body_legs()
 void _body_legs::draw_line(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.3,0);
+    glTranslatef(0,0.4,0);
+    glRotatef(angleBody,0,1,0);
     Body.draw_line();
     glPopMatrix();
 
@@ -29,7 +30,8 @@ void _body_legs::draw_line(){
 void _body_legs::draw_point(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.3,0);
+    glTranslatef(0,0.4,0);
+    glRotatef(angleBody,0,1,0);
     Body.draw_point();
     glPopMatrix();
 
@@ -45,4 +47,20 @@ void _body_legs::draw_point(){
     Leg.draw_point();
     glPopMatrix();
 
+}
+
+void _body_legs::increase_body(){
+    angleBody = angleBody + speedBody;
+}
+
+void _body_legs::decrease_body(){
+    angleBody = angleBody - speedBody;
+}
+
+void _body_legs::increaseSpeed_body(){
+   speedBody = speedBody + 1;
+}
+
+void _body_legs::decreaseSpeed_body(){
+    speedBody = speedBody - 1;
 }

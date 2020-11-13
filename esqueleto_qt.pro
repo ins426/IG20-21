@@ -31,20 +31,25 @@ HEADERS += \
   _cone.h \
   _cube.h \
   _cylinder.h \
+  _elbow.h \
+  _forearm.h \
   _glass.h \
   _hand.h \
   _head.h \
   _head_glass.h \
-  _hierarchical_model.h \
   _leg.h \
   _leg_wheel.h \
+  _lower_torso.h \
   _ply.h \
   _revolution_ply.h \
+  _robot.h \
   _semisphere.h \
   _sphere.h \
   _torso.h \
   _upper_body.h \
+  _upper_torso.h \
   _wheel.h \
+  _whole_arm.h \
   _whole_body.h \
   colors.h \
   basic_object3d.h \
@@ -64,19 +69,24 @@ SOURCES += \
   _cone.cc \
   _cube.cc \
   _cylinder.cc \
+  _elbow.cc \
+  _forearm.cc \
   _glass.cc \
   _hand.cc \
   _head.cc \
   _head_glass.cc \
-  _hierarchical_model.cc \
   _leg_wheel.cc \
+  _lower_torso.cc \
   _ply.cc \
   _revolution_ply.cc \
+  _robot.cc \
   _semisphere.cc \
   _sphere.cc \
   _torso.cc \
   _upper_body.cc \
+  _upper_torso.cc \
   _wheel.cc \
+  _whole_arm.cc \
   _whole_body.cc \
   basic_object3d.cc \
   file_ply_stl.cc \

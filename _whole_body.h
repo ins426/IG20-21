@@ -12,6 +12,14 @@ public:
 
     void draw_line();
     void draw_point();
+
+    void increase_arms();
+    void decrease_arms();
+    void increaseSpeed_arm();
+    void decreaseSpeed_arm();
+
+    float angleArm = 0;
+    float speedArm = 1;
 };
 
 #endif // _WHOLE_BODY_H

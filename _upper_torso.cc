@@ -1,24 +1,26 @@
-#include "_arm.h"
+#include "_upper_torso.h"
+
 using namespace _colors_ne;
-_arm::_arm()
+_upper_torso::_upper_torso()
 {
 
 }
 
-void _arm::draw_line(){
-    glColor3fv(((GLfloat *) &MAGENTA));
+void _upper_torso::draw_line(){
+    glColor3fv(((GLfloat *) &GREEN));
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glScalef(0.25,0.17,0.2);
+    glScalef(1,0.5,1);
     Cylinder.draw_line();
     glPopMatrix();
 
 }
 
-void _arm::draw_point(){
+void _upper_torso::draw_point(){
+
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glScalef(0.25,0.17,0.2);
+    glScalef(1,0.5,1);
     Cylinder.draw_point();
     glPopMatrix();
 

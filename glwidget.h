@@ -24,8 +24,10 @@
 #include "_sphere.h"
 #include "_semisphere.h"
 #include "_revolution_ply.h"
-#include "_whole_body.h"
-#include "_hierarchical_model.h"
+#include "_robot.h"
+#include "_arm_hand.h"
+#include <QTimer>
+
 namespace _gl_widget_ne {
 
   const float X_MIN=-.1;
@@ -38,7 +40,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_BODY} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_BODY, OBJECT_TORSO} _object;
 }
 
 class _window;
@@ -63,11 +65,16 @@ public:
   void draw_axis();
   void draw_objects();
 
+  void animation();
+
 protected:
   void resizeGL(int Width1, int Height1) Q_DECL_OVERRIDE;
   void paintGL() Q_DECL_OVERRIDE;
   void initializeGL() Q_DECL_OVERRIDE;
   void keyPressEvent(QKeyEvent *Keyevent) Q_DECL_OVERRIDE;
+
+private slots:
+  void tick();
 
 private:
   _window *Window;
@@ -81,9 +88,22 @@ private:
   _sphere Sphere;
   _semisphere Semisphere;
 
-  _hierarchical_model Body;
+  _robot Robot;
+
+  _arm_hand Torso;
 
   _gl_widget_ne::_object Object;
+
+  const float MAX_HAND = 0.09;
+  const float MIN_HAND = 0;
+  const float MAX_ARM = 180;
+  const float MIN_ARM = 0;
+  const float MAX_BODY = 45;
+  const float MIN_BODY = -45;
+
+  bool arms_direction;
+  bool hand_direction;
+  bool body_direction;
 
   bool Draw_point;
   bool Draw_line;
@@ -93,6 +113,9 @@ private:
   float Observer_angle_x;
   float Observer_angle_y;
   float Observer_distance;
+
+  QTimer Timer;
+  bool Animation;
 };
 
 #endif

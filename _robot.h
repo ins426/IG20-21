@@ -1,17 +1,18 @@
-#ifndef _HIERARCHICAL_MODEL_H
-#define _HIERARCHICAL_MODEL_H
+#ifndef _ROBOT_H
+#define _ROBOT_H
 
 #include "_whole_body.h"
 #include "_bag.h"
-class _hierarchical_model
+class _robot
 {
 public:
-    _hierarchical_model();
+    _robot();
     _whole_body Body;
     _bag Bag;
 
     void draw_point();
     void draw_line();
+
 };
 
 #endif // HIERARCHICAL_MODEL_H

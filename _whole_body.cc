@@ -14,13 +14,15 @@ void _whole_body::draw_line(){
     //Right
     glPushMatrix();
     glTranslatef(-0.5,1.25,0);
+    glRotatef(-angleArm,1,0,0);
     glRotatef(180,0,0,1);
     Arm.draw_line();
     glPopMatrix();
 
-    //Left
+//    //Left
     glPushMatrix();
     glTranslatef(0.5,1.25,0);
+    glRotatef(-angleArm,1,0,0);
     glRotatef(180,0,0,1);
     Arm.draw_line();
     glPopMatrix();
@@ -36,6 +38,7 @@ void _whole_body::draw_point(){
     //Right
     glPushMatrix();
     glTranslatef(-0.5,1.25,0);
+    glRotatef(-angleArm,1,0,0);
     glRotatef(180,0,0,1);
     Arm.draw_point();
     glPopMatrix();
@@ -43,8 +46,25 @@ void _whole_body::draw_point(){
     //Left
     glPushMatrix();
     glTranslatef(0.5,1.25,0);
+    glRotatef(-angleArm,1,0,0);
     glRotatef(180,0,0,1);
     Arm.draw_point();
     glPopMatrix();
 
+}
+
+void _whole_body::increase_arms(){
+    angleArm = angleArm+speedArm;
+}
+
+void _whole_body::decrease_arms(){
+    angleArm = angleArm-speedArm;
+}
+
+void _whole_body::increaseSpeed_arm(){
+    speedArm = speedArm + 1;
+}
+
+void _whole_body::decreaseSpeed_arm(){
+    speedArm = speedArm - 1;
 }

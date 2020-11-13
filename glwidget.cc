@@ -46,6 +46,37 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_BODY;break;
 
+  case Qt::Key_A:animation();break;
+  //1st degree of freedom
+  case Qt::Key_Q:
+      if(Robot.Body.angleArm < MAX_ARM)Robot.Body.increase_arms();break;
+  case Qt::Key_W:
+      if(Robot.Body.angleArm > MIN_ARM)Robot.Body.decrease_arms();break;
+  case Qt::Key_E:
+      Robot.Body.increaseSpeed_arm();break;
+  case Qt::Key_R:
+      Robot.Body.decreaseSpeed_arm();break;
+  //2nd degree of freedom
+  case Qt::Key_S:
+      cout << Robot.Body.Arm.positionHand << endl;
+      if(Robot.Body.Arm.positionHand < MAX_HAND)Robot.Body.Arm.increase_hands();break;
+  case Qt::Key_D:
+      if(Robot.Body.Arm.positionHand > MIN_HAND)Robot.Body.Arm.decrease_hands();break;
+  case Qt::Key_T:
+      Robot.Body.Arm.increaseSpeed_hands();break;
+  case Qt::Key_Y:
+      Robot.Body.Arm.decreaseSpeed_hands();break;
+  //3rd degree of freedom
+  case Qt::Key_Z:
+      if(Robot.Body.Body_legs.angleBody < MAX_BODY)Robot.Body.Body_legs.increase_body();break;
+  case Qt::Key_X:
+      if(Robot.Body.Body_legs.angleBody > MIN_BODY)Robot.Body.Body_legs.decrease_body();break;
+  case Qt::Key_U:
+      Robot.Body.Body_legs.increaseSpeed_body();break;
+  case Qt::Key_I:
+      Robot.Body.Body_legs.decreaseSpeed_body();break;
+  case Qt::Key_B:Object=OBJECT_TORSO;break;
+
   case Qt::Key_P:Draw_point=!Draw_point;
   break;
   case Qt::Key_L:Draw_line=!Draw_line;
@@ -139,7 +170,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_point();break;
     case OBJECT_SPHERE:Sphere.draw_point();break;
     case OBJECT_PLY:Ply.draw_point();break;
-    case OBJECT_BODY:Body.draw_point();break;
+    case OBJECT_BODY:Robot.draw_point();break;
     default:break;
     }
   }
@@ -154,7 +185,8 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_line();break;
     case OBJECT_SPHERE:Sphere.draw_line();break;
     case OBJECT_PLY:Ply.draw_line();break;
-    case OBJECT_BODY:Body.draw_line();break;
+    case OBJECT_BODY:Robot.draw_line();break;
+    case OBJECT_TORSO:Torso.draw_line();break;
     default:break;
     }
   }
@@ -262,5 +294,55 @@ void _gl_widget::initializeGL()
   Draw_fill=false;
   Draw_chess=false;
 
-   _gl_widget_ne::_object Object = OBJECT_TETRAHEDRON;
+  Timer.setInterval(0);
+  connect(&Timer,SIGNAL(timeout()),this,SLOT(tick()));
+
+  Animation = false;
+
+  arms_direction = true;
+  hand_direction = true;
+  body_direction = true;
+  _gl_widget_ne::_object Object = OBJECT_TETRAHEDRON;
+}
+
+void _gl_widget::tick(){
+    if(Animation){
+        if(arms_direction){
+            Robot.Body.increase_arms();
+            if(Robot.Body.angleArm > MAX_ARM)
+                arms_direction = false;
+        }else{
+            Robot.Body.decrease_arms();
+            if(Robot.Body.angleArm < MIN_ARM)
+            arms_direction = true;
+        }
+
+        if(hand_direction){
+            Robot.Body.Arm.increase_hands();
+            if(Robot.Body.Arm.positionHand > MAX_HAND)
+                hand_direction = false;
+        }else{
+            Robot.Body.Arm.decrease_hands();
+            if(Robot.Body.Arm.positionHand < MIN_HAND)
+                hand_direction = true;
+        }
+
+        if(body_direction){
+            Robot.Body.Body_legs.increase_body();
+            if(Robot.Body.Body_legs.angleBody > MAX_BODY)
+                body_direction = false;
+        }else{
+            Robot.Body.Body_legs.decrease_body();
+            if(Robot.Body.Body_legs.angleBody < MIN_BODY)
+                body_direction = true;
+        }
+    }
+    update();
+}
+
+void _gl_widget::animation(){
+    Animation=!Animation;
+
+    if(Animation==true)Timer.start();
+    else Timer.stop();
 }

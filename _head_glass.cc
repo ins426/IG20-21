@@ -10,7 +10,7 @@ void _head_glass::draw_line(){
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.1,0.4);
+    glTranslatef(0,0.2,0.4);
     Glass.draw_line();
     glPopMatrix();
 
@@ -21,7 +21,7 @@ void _head_glass::draw_point(){
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.1,0.4);
+    glTranslatef(0,0.2,0.4);
     Glass.draw_point();
     glPopMatrix();
 

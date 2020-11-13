@@ -1,22 +1,25 @@
-#include "_head.h"
+#include "_lower_torso.h"
 using namespace _colors_ne;
-_head::_head()
+_lower_torso::_lower_torso()
 {
 
 }
 
-void _head::draw_line(){
-    glColor3fv(((GLfloat *) &YEllOW));
+void _lower_torso::draw_line(){
+    glColor3fv(((GLfloat *) &BLUE));
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
+    glRotatef(180,0,0,1);
     Semisphere.draw_line();
     glPopMatrix();
 
 }
 
-void _head::draw_point(){
+void _lower_torso::draw_point(){
+
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
+    glRotatef(180,0,0,1);
     Semisphere.draw_point();
     glPopMatrix();
 

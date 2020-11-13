@@ -8,7 +8,7 @@ _leg_wheel::_leg_wheel()
 void _leg_wheel::draw_line(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0.15,0,0);
+    glTranslatef(0.15,0.15,0);
     Wheel.draw_line();
     glPopMatrix();
 
@@ -21,7 +21,7 @@ void _leg_wheel::draw_line(){
 void _leg_wheel::draw_point(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0.15,0,0);
+    glTranslatef(0.15,0.15,0);
     Wheel.draw_point();
     glPopMatrix();
 

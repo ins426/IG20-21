@@ -1,11 +1,11 @@
-#include "_arm.h"
+#include "_forearm.h"
 using namespace _colors_ne;
-_arm::_arm()
+_forearm::_forearm()
 {
 
 }
 
-void _arm::draw_line(){
+void _forearm::draw_line(){
     glColor3fv(((GLfloat *) &MAGENTA));
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -15,7 +15,7 @@ void _arm::draw_line(){
 
 }
 
-void _arm::draw_point(){
+void _forearm::draw_point(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glScalef(0.25,0.17,0.2);

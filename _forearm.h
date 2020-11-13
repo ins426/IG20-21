@@ -1,16 +1,15 @@
-#ifndef _ARM_H
-#define _ARM_H
+#ifndef _FOREARM_H
+#define _FOREARM_H
 
 #include "_cylinder.h"
-class _arm
+class _forearm
 {
 public:
-    _arm();
+    _forearm();
     _cylinder Cylinder;
 
     void draw_line();
     void draw_point();
-
 };
 
-#endif // _ARM_H
+#endif // _FOREARM_H
