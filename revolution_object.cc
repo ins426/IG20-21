@@ -24,15 +24,15 @@ void revolution_object::crearRevolutionObject(const int N){
     }
 
     if(Vertices[Vertices.size()-1].x == 0.0){
+        tapa_superior = true;
+        vsuperior = Vertices[Vertices.size()-1];
+        Vertices.erase(Vertices.begin()+Vertices.size()-1);
+    }
+
+    if(Vertices[Vertices.size()-1].x == 0.0){
           tapa_inferior = true;
           vinferior = Vertices[Vertices.size()-1];
           Vertices.erase(Vertices.begin()+Vertices.size()-1);
-     }
-
-     if(Vertices[Vertices.size()-1].x == 0.0){
-         tapa_superior = true;
-         vsuperior = Vertices[Vertices.size()-1];
-         Vertices.erase(Vertices.begin()+Vertices.size()-1);
      }
 
     num_rotar = Vertices.size();
@@ -54,10 +54,10 @@ void revolution_object::crearRevolutionObject(const int N){
 
     if(tapa_inferior){
         Vertices.resize(Vertices.size()+1);
-        Vertices[Vertices.size()-1] = vinferior;
-       Triangles.resize(N+Triangles.size());
-        crearTapaInferior(N,num_rotar);
-    }
+         Vertices[Vertices.size()-1] = vinferior;
+         Triangles.resize(N+Triangles.size());
+         crearTapaInferior(N,num_rotar);
+     }
 }
 
 void revolution_object::rotarPuntos(const int N, int num_rotar){
@@ -77,13 +77,15 @@ void revolution_object::rotarPuntos(const int N, int num_rotar){
 
 void revolution_object::crearCara(const int N, int num_rotar){
     int indice = 0;
+    int k;
 
-    for(int k=1; k <= N; k++){
-        for(int j = 1; j < num_rotar;j++){
-            int i = k*num_rotar+j;
-            Triangles[indice] = _vertex3ui((i-num_rotar)%Vertices.size(),i%Vertices.size(),(i-num_rotar)%Vertices.size());
-            Triangles[indice+1] = _vertex3ui(i%Vertices.size(),(i-1)%Vertices.size(),(i-num_rotar-1)%Vertices.size());
-            indice+=2;
+    for(int i = 0; i < num_rotar-1; i++ ){
+        k = i+num_rotar;
+        for(int j = 0; j < N; j++){
+            Triangles[indice] = _vertex3ui((k-num_rotar)%Vertices.size(),k%Vertices.size(),(k-num_rotar+1)%Vertices.size());
+            Triangles[indice+1] = _vertex3ui(k%Vertices.size(),(k+1)%Vertices.size(),(k-num_rotar+1)%Vertices.size());
+            k += num_rotar;
+            indice++;
         }
     }
 }
