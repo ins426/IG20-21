@@ -14,4 +14,6 @@ _sphere::_sphere(float Size, int N )
     Vertices[Vertices.size()-1] = _vertex3f(0,-Size/2,0);
 
      crearRevolutionObject(N);
+
+     calculateNormalTriangles();
 }

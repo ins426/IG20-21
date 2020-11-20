@@ -109,6 +109,7 @@ private:
   bool Draw_line;
   bool Draw_fill;
   bool Draw_chess;
+  bool Draw_flat;
 
   float Observer_angle_x;
   float Observer_angle_y;

@@ -24,16 +24,16 @@ void revolution_object::crearRevolutionObject(const int N){
     }
 
     if(Vertices[Vertices.size()-1].x == 0.0){
-        tapa_superior = true;
-        vsuperior = Vertices[Vertices.size()-1];
-        Vertices.erase(Vertices.begin()+Vertices.size()-1);
-    }
-
-    if(Vertices[Vertices.size()-1].x == 0.0){
           tapa_inferior = true;
           vinferior = Vertices[Vertices.size()-1];
           Vertices.erase(Vertices.begin()+Vertices.size()-1);
      }
+
+    if(Vertices[Vertices.size()-1].x == 0.0){
+        tapa_superior = true;
+        vsuperior = Vertices[Vertices.size()-1];
+        Vertices.erase(Vertices.begin()+Vertices.size()-1);
+    }
 
     num_rotar = Vertices.size();
 
@@ -85,7 +85,7 @@ void revolution_object::crearCara(const int N, int num_rotar){
             Triangles[indice] = _vertex3ui((k-num_rotar)%Vertices.size(),k%Vertices.size(),(k-num_rotar+1)%Vertices.size());
             Triangles[indice+1] = _vertex3ui(k%Vertices.size(),(k+1)%Vertices.size(),(k-num_rotar+1)%Vertices.size());
             k += num_rotar;
-            indice++;
+            indice+=2;
         }
     }
 }
@@ -94,8 +94,8 @@ void revolution_object::crearCara(const int N, int num_rotar){
 void revolution_object::crearTapaSuperior(int N,int num_rotar){
     int indice = Triangles.size()-N;
 
-    for(int i = 0; indice < Triangles.size();indice++, i+=num_rotar){
-        Triangles[indice] = _vertex3ui(i%Vertices.size(),(i+num_rotar)%Triangles.size(), Vertices.size()-1);
+    for(int i = num_rotar-1; indice < Triangles.size(); indice++,i+=num_rotar){
+        Triangles[indice] = _vertex3ui(i,(i+num_rotar)%(Vertices.size()-1),Vertices.size()-1);
     }
 }
 
@@ -104,8 +104,8 @@ void revolution_object::crearTapaSuperior(int N,int num_rotar){
 void revolution_object::crearTapaInferior(int N,int num_rotar){
     int indice = Triangles.size()-N;
 
-    for(int i = num_rotar-1; indice < Triangles.size()-1; indice++,i+=num_rotar){
-        Triangles[indice] = _vertex3ui(i,(i+num_rotar)%Triangles.size(),Vertices.size()-1);
+    for(int i = 0; indice < Triangles.size();indice++, i+=num_rotar){
+        Triangles[indice] = _vertex3ui((i+num_rotar)%(Vertices.size()-2),i%Vertices.size(), Vertices.size()-1);
     }
 }
 

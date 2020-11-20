@@ -10,9 +10,5 @@ _cylinder::_cylinder(int N, float H, float R)
     Vertices[3]= _vertex3f(0,0,0);
 
     crearRevolutionObject(N);
-
-}
-
-void _cylinder::calculateNormalTriangles(){
-
+    calculateNormalTriangles();
 }

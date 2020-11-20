@@ -86,6 +86,9 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_C:Draw_chess=!Draw_chess;
   break;
 
+  case Qt::Key_V:Draw_flat=!Draw_flat;
+  break;
+
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
   case Qt::Key_Up:Observer_angle_x-=ANGLE_STEP;break;
@@ -219,6 +222,21 @@ void _gl_widget::draw_objects()
     default:break;
     }
   }
+
+  if (Draw_flat){
+      glColor3fv((GLfloat *) &MAGENTA);
+    switch (Object){
+//    case OBJECT_TETRAHEDRON:Tetrahedron.draw_chess();break;
+//    case OBJECT_CUBE:Cube.draw_chess();break;
+     case OBJECT_CYLINDER:Cylinder.draw_flat_shading();break;
+//    case OBJECT_CONE:Cone.draw_chess();break;
+    case OBJECT_SPHERE:Sphere.draw_flat_shading();break;
+   // case OBJECT_SEMISPHERE:Semisphere.draw_chess();break;
+//    case OBJECT_PLY:Ply.draw_chess();break;
+    //case OBJECT_LEG:Leg.draw_chess();break;
+    default:break;
+    }
+  }
 }
 
 
@@ -293,6 +311,7 @@ void _gl_widget::initializeGL()
   Draw_line=false;
   Draw_fill=false;
   Draw_chess=false;
+  Draw_flat = false;
 
   Timer.setInterval(0);
   connect(&Timer,SIGNAL(timeout()),this,SLOT(tick()));
