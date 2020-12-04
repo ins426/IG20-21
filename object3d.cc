@@ -74,23 +74,9 @@ void _object3D::draw_chess()
 }
 
 void _object3D::draw_flat_shading(){
-    //definir luz
-    glLightf(GL_LIGHT0,GL_POSITION,(0, 0, 1, 0));
-
-    //habilitar la luz
-    glEnable(GL_LIGHT0);
+    //habilitar luces
     //definir el shading
     glShadeModel(GL_FLAT);
-    //habilitar ilumación
-    glEnable(GL_LIGHTING);
-
-
-    //definir material
-    glMaterialf(GL_FRONT_AND_BACK,GL_DIFFUSE,(0, 0.7, 0, 1.0));
-    glMaterialf(GL_FRONT_AND_BACK,GL_SPECULAR,(0, 0.7, 0, 1.0));
-    glMaterialf(GL_FRONT_AND_BACK,GL_AMBIENT,(0, 0.7, 0, 1.0));
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,40);
-
 
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
@@ -98,6 +84,23 @@ void _object3D::draw_flat_shading(){
       glNormal3f((GLfloat)NormalTriangles[i]._0,(GLfloat)NormalTriangles[i]._1,(GLfloat)NormalTriangles[i]._2);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
+    }
+    glEnd();
+}
+
+void _object3D::draw_smooth_shading(){
+    //definir el shading
+    glShadeModel(GL_SMOOTH);
+
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    glBegin(GL_TRIANGLES);
+    for (unsigned int i=0;i<Triangles.size();i++){
+      glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._0]);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
+      glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._1]);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
+      glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._2]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
     }
     glEnd();

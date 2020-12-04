@@ -1,49 +1,46 @@
-#include "_robot.h"
-
+#include "_leg.h"
+using namespace _colors_ne;
 /*****************************************************************************************/
-_robot::_robot()
+_leg::_leg()
 {
 
 }
 /*****************************************************************************************/
-void _robot::draw_line(){
-    Body.draw_line();
+void _leg::draw_line(){
+    glColor3fv(((GLfloat *) &BLUE));
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.5,0.2);
+    Cylinder.draw_line();
+    glPopMatrix();
 
+}
+/*****************************************************************************************/
+void _leg::draw_point(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_line();
+    glScalef(0.25,0.5,0.2);
+    Cylinder.draw_point();
     glPopMatrix();
 
-    glPushMatrix();
-    Body.draw_line();
-    glPopMatrix();
 }
 /*****************************************************************************************/
-void _robot::draw_point(){
-    Body.draw_point();
+void _leg::draw_fill(){
+    glColor3fv(((GLfloat *) &BLUE));
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_point();
+    glScalef(0.25,0.5,0.2);
+    Cylinder.draw_fill();
     glPopMatrix();
+
 }
 /*****************************************************************************************/
-void _robot::draw_fill(){
-    Body.draw_fill();
+void _leg::draw_chess(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_fill();
+    glScalef(0.25,0.5,0.2);
+    Cylinder.draw_chess();
     glPopMatrix();
-}
-/*****************************************************************************************/
-void _robot::draw_chess(){
-    Body.draw_chess();
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_chess();
-    glPopMatrix();
+
 }
 /*****************************************************************************************/

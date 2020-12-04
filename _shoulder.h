@@ -1,17 +1,19 @@
-#ifndef _WHEEL_H
-#define _WHEEL_H
+#ifndef _SHOULDER_H
+#define _SHOULDER_H
 
 #include "_cylinder.h"
-class _wheel
+
+class _shoulder
 {
 public:
-    _wheel();
+    _shoulder();
     _cylinder Cylinder;
 
-    void draw_point();
     void draw_line();
+    void draw_point();
     void draw_chess();
     void draw_fill();
+
 };
 
-#endif // _WHEEL_H
+#endif // _SHOULDER_H

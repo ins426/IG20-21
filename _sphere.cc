@@ -16,4 +16,5 @@ _sphere::_sphere(float Size, int N )
      crearRevolutionObject(N);
 
      calculateNormalTriangles();
+     calculateNormalVertices();
 }

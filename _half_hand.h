@@ -1,17 +1,19 @@
-#ifndef _BAG_H
-#define _BAG_H
+#ifndef _HALF_HAND_H
+#define _HALF_HAND_H
 
 #include "_cube.h"
-class _bag
+class _half_hand
 {
 public:
-    _bag();
+    _half_hand();
     _cube Cube;
 
     void draw_point();
     void draw_line();
     void draw_chess();
     void draw_fill();
+
+
 };
 
-#endif // _BAG_H
+#endif // _HAND_H

@@ -24,8 +24,6 @@ HEADERS += \
   ../GL/wglew.h \
   ../GL/wglext.h \
   ../GL/wmesa.h \
-  _arm.h \
-  _arm_hand.h \
   _bag.h \
   _body_legs.h \
   _cone.h \
@@ -33,19 +31,24 @@ HEADERS += \
   _cylinder.h \
   _elbow.h \
   _forearm.h \
+  _forearm_elbow.h \
+  _forearm_hand.h \
   _glass.h \
-  _hand.h \
+  _half_hand.h \
   _head.h \
   _head_glass.h \
   _leg.h \
   _leg_wheel.h \
+  _light.h \
   _lower_torso.h \
   _ply.h \
   _revolution_ply.h \
   _robot.h \
   _semisphere.h \
+  _shoulder.h \
   _sphere.h \
   _torso.h \
+  _two_arms.h \
   _upper_body.h \
   _upper_torso.h \
   _wheel.h \
@@ -62,8 +65,6 @@ HEADERS += \
   window.h
 
 SOURCES += \
-  _arm.cc \
-  _arm_hand.cc \
   _bag.cc \
   _body_legs.cc \
   _cone.cc \
@@ -71,18 +72,24 @@ SOURCES += \
   _cylinder.cc \
   _elbow.cc \
   _forearm.cc \
+  _forearm_elbow.cc \
+  _forearm_hand.cc \
   _glass.cc \
-  _hand.cc \
+  _half_hand.cc \
   _head.cc \
   _head_glass.cc \
+  _leg.cc \
   _leg_wheel.cc \
+  _light.cc \
   _lower_torso.cc \
   _ply.cc \
   _revolution_ply.cc \
   _robot.cc \
   _semisphere.cc \
+  _shoulder.cc \
   _sphere.cc \
   _torso.cc \
+  _two_arms.cc \
   _upper_body.cc \
   _upper_torso.cc \
   _wheel.cc \
@@ -90,7 +97,6 @@ SOURCES += \
   _whole_body.cc \
   basic_object3d.cc \
   file_ply_stl.cc \
-  leg.cc \
   object3d.cc \
   axis.cc \
   revolution_object.cc \

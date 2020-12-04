@@ -1,47 +1,54 @@
 #include "_whole_arm.h"
-using namespace _colors_ne;
+/*****************************************************************************************/
 _whole_arm::_whole_arm()
 {
 
 }
-
+/*****************************************************************************************/
 void _whole_arm::draw_line(){
     glMatrixMode(GL_MODELVIEW);
 
     glPushMatrix();
-    glTranslatef(0,0.34,0);
-    Arm.draw_line();
-    glPopMatrix();
-
-    glPushMatrix();
     glTranslatef(0,0.17,0);
-    Elbow.draw_line();
+    Forearm_elbow.draw_line();
     glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(0,0,0);
-    Forearm.draw_line();
-    glPopMatrix();
-
+    Shoulder.draw_line();
 }
-
+/*****************************************************************************************/
 void _whole_arm::draw_point(){
     glMatrixMode(GL_MODELVIEW);
 
     glPushMatrix();
-    glTranslatef(0,0.34,0);
-    Arm.draw_point();
+    glTranslatef(0,0.17,0);
+    Forearm_elbow.draw_point();
     glPopMatrix();
+
+    Shoulder.draw_point();
+
+}
+/*****************************************************************************************/
+void _whole_arm::draw_fill(){
+    glMatrixMode(GL_MODELVIEW);
 
     glPushMatrix();
     glTranslatef(0,0.17,0);
-    Elbow.draw_point();
+    Forearm_elbow.draw_fill();
     glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(0,0,0);
-    Forearm.draw_point();
-    glPopMatrix();
-
+    Shoulder.draw_fill();
 
 }
+/*****************************************************************************************/
+void _whole_arm::draw_chess(){
+    glMatrixMode(GL_MODELVIEW);
+
+    glPushMatrix();
+    glTranslatef(0,0.17,0);
+    Forearm_elbow.draw_chess();
+    glPopMatrix();
+
+    Shoulder.draw_chess();
+
+}
+/*****************************************************************************************/

@@ -25,8 +25,9 @@
 #include "_semisphere.h"
 #include "_revolution_ply.h"
 #include "_robot.h"
-#include "_arm_hand.h"
+#include "_whole_arm.h"
 #include <QTimer>
+#include "_light.h"
 
 namespace _gl_widget_ne {
 
@@ -40,7 +41,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_BODY, OBJECT_TORSO} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_ROBOT, OBJECT_SEMISPHERE} _object;
 }
 
 class _window;
@@ -90,7 +91,9 @@ private:
 
   _robot Robot;
 
-  _arm_hand Torso;
+  _light Light;
+
+  _object3D Object3d;
 
   _gl_widget_ne::_object Object;
 
@@ -105,11 +108,15 @@ private:
   bool hand_direction;
   bool body_direction;
 
+  bool activateLight0;
+  bool activateLight1;
+
   bool Draw_point;
   bool Draw_line;
   bool Draw_fill;
   bool Draw_chess;
   bool Draw_flat;
+  bool Draw_smooth;
 
   float Observer_angle_x;
   float Observer_angle_y;

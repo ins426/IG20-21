@@ -1,49 +1,47 @@
-#include "_robot.h"
+#include "_half_hand.h"
+using namespace _colors_ne;
 
 /*****************************************************************************************/
-_robot::_robot()
+_half_hand::_half_hand()
 {
 
 }
 /*****************************************************************************************/
-void _robot::draw_line(){
-    Body.draw_line();
+void _half_hand::draw_line(){
+    glColor3fv(((GLfloat *) &MAGENTA));
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.2,0.1,0.01);
+    Cube.draw_line();
+    glPopMatrix();
 
+}
+/*****************************************************************************************/
+void _half_hand::draw_point(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_line();
+    glScalef(0.2,0.1,0.01);
+    Cube.draw_point();
     glPopMatrix();
 
-    glPushMatrix();
-    Body.draw_line();
-    glPopMatrix();
 }
 /*****************************************************************************************/
-void _robot::draw_point(){
-    Body.draw_point();
+void _half_hand::draw_fill(){
+    glColor3fv(((GLfloat *) &MAGENTA));
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_point();
+    glScalef(0.2,0.1,0.01);
+    Cube.draw_fill();
     glPopMatrix();
+
 }
 /*****************************************************************************************/
-void _robot::draw_fill(){
-    Body.draw_fill();
+void _half_hand::draw_chess(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_fill();
+    glScalef(0.2,0.1,0.01);
+    Cube.draw_chess();
     glPopMatrix();
-}
-/*****************************************************************************************/
-void _robot::draw_chess(){
-    Body.draw_chess();
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_chess();
-    glPopMatrix();
+
 }
 /*****************************************************************************************/

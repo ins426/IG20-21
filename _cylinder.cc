@@ -11,4 +11,5 @@ _cylinder::_cylinder(int N, float H, float R)
 
     crearRevolutionObject(N);
     calculateNormalTriangles();
+    calculateNormalVertices();
 }

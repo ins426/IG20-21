@@ -1,48 +1,79 @@
-#include "_lower_torso.h"
-using namespace _colors_ne;
+#include "_two_arms.h"
 
 /*****************************************************************************************/
-_lower_torso::_lower_torso()
+_two_arms::_two_arms()
 {
 
 }
 /*****************************************************************************************/
-void _lower_torso::draw_line(){
-    glColor3fv(((GLfloat *) &BLUE));
+void _two_arms::draw_line(){
+    //Right
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
+    glTranslatef(-0.5,0,0);
     glRotatef(180,0,0,1);
-    Semisphere.draw_line();
+    Arm.draw_line();
+    glPopMatrix();
+
+    //Left
+    glPushMatrix();
+    glTranslatef(0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_line();
     glPopMatrix();
 
 }
 /*****************************************************************************************/
-void _lower_torso::draw_point(){
-
+void _two_arms::draw_point(){
     glMatrixMode(GL_MODELVIEW);
+    //Right
     glPushMatrix();
+    glTranslatef(-0.5,0,0);
     glRotatef(180,0,0,1);
-    Semisphere.draw_point();
+    Arm.draw_point();
+    glPopMatrix();
+
+    //Left
+    glPushMatrix();
+    glTranslatef(0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_point();
     glPopMatrix();
 
 }
 /*****************************************************************************************/
-void _lower_torso::draw_fill(){
-    glColor3fv(((GLfloat *) &BLUE));
+void _two_arms::draw_fill(){
     glMatrixMode(GL_MODELVIEW);
+    //Right
     glPushMatrix();
+    glTranslatef(-0.5,0,0);
     glRotatef(180,0,0,1);
-    Semisphere.draw_fill();
+    Arm.draw_fill();
+    glPopMatrix();
+
+    //Left
+    glPushMatrix();
+    glTranslatef(0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_fill();
     glPopMatrix();
 
 }
 /*****************************************************************************************/
-void _lower_torso::draw_chess(){
-
+void _two_arms::draw_chess(){
     glMatrixMode(GL_MODELVIEW);
+    //Right
     glPushMatrix();
+    glTranslatef(-0.5,0,0);
     glRotatef(180,0,0,1);
-    Semisphere.draw_chess();
+    Arm.draw_chess();
+    glPopMatrix();
+
+    //Left
+    glPushMatrix();
+    glTranslatef(0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_chess();
     glPopMatrix();
 
 }

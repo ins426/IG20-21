@@ -11,6 +11,8 @@ public:
 
     void draw_line();
     void draw_point();
+    void draw_chess();
+    void draw_fill();
 };
 
 #endif // UPPER_TORSO_H

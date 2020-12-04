@@ -1,49 +1,49 @@
-#include "_robot.h"
+#include "_forearm_elbow.h"
 
 /*****************************************************************************************/
-_robot::_robot()
+_forearm_elbow::_forearm_elbow()
 {
 
 }
 /*****************************************************************************************/
-void _robot::draw_line(){
-    Body.draw_line();
-
+void _forearm_elbow::draw_line(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_line();
+    glTranslatef(0,0.17,0);
+    Forearm_hand.draw_line();
     glPopMatrix();
 
-    glPushMatrix();
-    Body.draw_line();
-    glPopMatrix();
+    Elbow.draw_line();
+
 }
 /*****************************************************************************************/
-void _robot::draw_point(){
-    Body.draw_point();
+void _forearm_elbow::draw_point(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_point();
+    glTranslatef(0,0.17,0);
+    Forearm_hand.draw_point();
     glPopMatrix();
+
+    Elbow.draw_point();
 }
 /*****************************************************************************************/
-void _robot::draw_fill(){
-    Body.draw_fill();
+void _forearm_elbow::draw_fill(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_fill();
+    glTranslatef(0,0.17,0);
+    Forearm_hand.draw_fill();
     glPopMatrix();
+
+    Elbow.draw_fill();
 }
 /*****************************************************************************************/
-void _robot::draw_chess(){
-    Body.draw_chess();
+void _forearm_elbow::draw_chess(){
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,-0.5);
-    Bag.draw_chess();
+    glTranslatef(0,0.17,0);
+    Forearm_hand.draw_chess();
     glPopMatrix();
+
+    Elbow.draw_chess();
 }
 /*****************************************************************************************/
