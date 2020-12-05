@@ -11,7 +11,7 @@ void _upper_body::draw_line(){
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,0);
+    glTranslatef(0,1,0);
     Head.draw_line();
     glPopMatrix();
 
@@ -22,7 +22,7 @@ void _upper_body::draw_point(){
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,0);
+    glTranslatef(0,1,0);
     Head.draw_point();
     glPopMatrix();
 
@@ -33,7 +33,7 @@ void _upper_body::draw_fill(){
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,0);
+    glTranslatef(0,1,0);
     Head.draw_fill();
     glPopMatrix();
 
@@ -44,7 +44,7 @@ void _upper_body::draw_chess(){
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glTranslatef(0,0.9,0);
+    glTranslatef(0,1,0);
     Head.draw_chess();
     glPopMatrix();
 

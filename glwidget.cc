@@ -45,19 +45,25 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_5:Object=OBJECT_SPHERE;break;
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_ROBOT;break;
-  case Qt::Key_8:Object=OBJECT_SEMISPHERE;break;
+  case Qt::Key_9:Object=OBJECT_SEMISPHERE;break;
 
   case Qt::Key_A:animation();break;
 
   //1st degree of freedom
   case Qt::Key_Q:
-      if(Robot.Body.angleArms < MAX_ARM)Robot.Body.increase_arms();break;
+      if(Robot.Body.angleArms < MAX_ARM)
+          Robot.Body.increase_arms();
+      break;
   case Qt::Key_W:
-      if(Robot.Body.angleArms > MIN_ARM)Robot.Body.decrease_arms();break;
+      if(Robot.Body.angleArms > MIN_ARM)
+          Robot.Body.decrease_arms();
+      break;
   case Qt::Key_E:
-      Robot.Body.increaseSpeed_arm();break;
+      Robot.Body.increaseSpeed_arm();
+      break;
   case Qt::Key_R:
-      Robot.Body.decreaseSpeed_arm();break;
+      Robot.Body.decreaseSpeed_arm();
+      break;
   //2nd degree of freedom
   case Qt::Key_S:
       if(Robot.Body.Arms.Arm.Forearm_elbow.Forearm_hand.positionHand < MAX_HAND)
@@ -73,13 +79,19 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       Robot.Body.Arms.Arm.Forearm_elbow.Forearm_hand.decreaseSpeed_hands();break;
   //3rd degree of freedom
   case Qt::Key_Z:
-      if(Robot.Body.Body_legs.angleBody < MAX_BODY)Robot.Body.Body_legs.increase_body();break;
+      if(Robot.Body.Body_legs.angleBody < MAX_BODY)
+          Robot.Body.Body_legs.increase_body();
+      break;
   case Qt::Key_X:
-      if(Robot.Body.Body_legs.angleBody > MIN_BODY)Robot.Body.Body_legs.decrease_body();break;
+      if(Robot.Body.Body_legs.angleBody > MIN_BODY)
+          Robot.Body.Body_legs.decrease_body();
+      break;
   case Qt::Key_U:
-      Robot.Body.Body_legs.increaseSpeed_body();break;
+      Robot.Body.Body_legs.increaseSpeed_body();
+      break;
   case Qt::Key_I:
-      Robot.Body.Body_legs.decreaseSpeed_body();break;
+      Robot.Body.Body_legs.decreaseSpeed_body();
+      break;
 
   case Qt::Key_P:Draw_point=!Draw_point;
   break;
@@ -87,18 +99,19 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   break;
   case Qt::Key_F:Draw_fill=!Draw_fill;
   break;
-  case Qt::Key_C:Draw_chess=!Draw_chess;
+  case Qt::Key_F2:Draw_chess=!Draw_chess;
   break;
-  case Qt::Key_V:
-      glEnable(GL_LIGHTING);
-      glEnable(GL_LIGHT0);
-      Draw_flat=!Draw_flat;
+  case Qt::Key_F3:Draw_flat=!Draw_flat;
   break;
-  case Qt::Key_0:Draw_smooth=!Draw_smooth;
+  case Qt::Key_F4:Draw_smooth=!Draw_smooth;
   break;
 
-  case Qt::Key_F11:
-      Light.ActivateLight0();
+  case Qt::Key_J:activateLight0=!activateLight0;
+  break;
+  case Qt::Key_K:activateLight1=!activateLight1;
+  break;
+
+  case Qt::Key_M:change_material=!change_material;
   break;
 
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
@@ -175,6 +188,29 @@ void _gl_widget::draw_objects()
 {
   Axis.draw_line();
 
+  if(change_material){
+      material = (material+1)%3;
+      Light.defineMaterial(material);
+      change_material = false;
+  }
+
+  if(activateLight0){
+     Light.ActivateLight0();
+  }
+  else{
+      Light.DesactivateLight0();
+  }
+
+  if(activateLight1){
+    Light.ActivateLight1();
+  }
+  else{
+      Light.DesactivateLight1();
+  }
+
+  if(!Draw_flat && !Draw_smooth)
+      Light.DesactivateLights();
+
   if (Draw_point){
     glPointSize(5);
     glColor3fv((GLfloat *) &BLACK);
@@ -237,21 +273,27 @@ void _gl_widget::draw_objects()
   }
 
   if (Draw_flat){
+    Light.ActivateLights();
+    Light.defineLight0();
+    Light.defineLight1();
     switch (Object){
      case OBJECT_CYLINDER:Cylinder.draw_flat_shading();break;
-     case OBJECT_SPHERE:
-        Sphere.draw_flat_shading();break;
+     case OBJECT_SPHERE:Sphere.draw_flat_shading();break;
     default:break;
     }
   }
 
   if (Draw_smooth){
+    Light.ActivateLights();
+    Light.defineLight0();
+    Light.defineLight1();
     switch (Object){
      case OBJECT_CYLINDER:Cylinder.draw_smooth_shading();break;
      case OBJECT_SPHERE:Sphere.draw_smooth_shading();break;
     default:break;
     }
   }
+
 }
 
 
@@ -337,9 +379,14 @@ void _gl_widget::initializeGL()
   activateLight0 = false;
   activateLight1 = false;
 
+  change_material = false;
+
   arms_direction = true;
   hand_direction = true;
   body_direction = true;
+
+  Light.defineMaterial(0);
+
   _gl_widget_ne::_object Object = OBJECT_TETRAHEDRON;
 }
 
@@ -375,6 +422,10 @@ void _gl_widget::tick(){
             Robot.Body.Body_legs.decrease_body();
             if(Robot.Body.Body_legs.angleBody < MIN_BODY)
                 body_direction = true;
+        }
+
+        if(activateLight1){
+            Light.moveLight1();
         }
     }
 

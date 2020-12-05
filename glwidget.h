@@ -92,6 +92,7 @@ private:
   _robot Robot;
 
   _light Light;
+  int material = 0;
 
   _object3D Object3d;
 
@@ -110,6 +111,8 @@ private:
 
   bool activateLight0;
   bool activateLight1;
+
+  bool change_material;
 
   bool Draw_point;
   bool Draw_line;
