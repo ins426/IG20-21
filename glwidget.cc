@@ -45,7 +45,9 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_5:Object=OBJECT_SPHERE;break;
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_ROBOT;break;
+  case Qt::Key_8:Object=OBJECT_BOARD;break;
   case Qt::Key_9:Object=OBJECT_SEMISPHERE;break;
+  case Qt::Key_0:Object=OBJECT_REVOLUTIONPLY;break;
 
   case Qt::Key_A:animation();break;
 
@@ -104,6 +106,12 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_F3:Draw_flat=!Draw_flat;
   break;
   case Qt::Key_F4:Draw_smooth=!Draw_smooth;
+  break;
+  case Qt::Key_F5:Draw_texture_unlit=!Draw_texture_unlit;
+  break;
+  case Qt::Key_F6:Draw_texture_light_flat=!Draw_texture_light_flat;
+  break;
+  case Qt::Key_F7:Draw_texture_light_smooth=!Draw_texture_light_smooth;
   break;
 
   case Qt::Key_J:activateLight0=!activateLight0;
@@ -221,6 +229,7 @@ void _gl_widget::draw_objects()
     case OBJECT_CYLINDER:Cylinder.draw_point();break;
     case OBJECT_SPHERE:Sphere.draw_point();break;
     case OBJECT_PLY:Ply.draw_point();break;
+    case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_point();break;
     case OBJECT_ROBOT:Robot.draw_point();break;
     case OBJECT_SEMISPHERE:Semisphere.draw_point();break;
     default:break;
@@ -237,7 +246,9 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_line();break;
     case OBJECT_SPHERE:Sphere.draw_line();break;
     case OBJECT_PLY:Ply.draw_line();break;
+    case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_line();break;
     case OBJECT_ROBOT:Robot.draw_line();break;
+    case OBJECT_BOARD:Board.draw_line();break;
     case OBJECT_SEMISPHERE:Semisphere.draw_line();break;
     default:break;
     }
@@ -252,9 +263,9 @@ void _gl_widget::draw_objects()
     case OBJECT_CONE:Cone.draw_fill();break;
     case OBJECT_SPHERE:Sphere.draw_fill();break;
     case OBJECT_PLY:Ply.draw_fill();break;
+    case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_fill();break;
     case OBJECT_ROBOT:Robot.draw_fill();break;
     case OBJECT_SEMISPHERE:Semisphere.draw_fill();break;
-    default:break;
     }
   }
 
@@ -268,6 +279,7 @@ void _gl_widget::draw_objects()
     case OBJECT_ROBOT:Robot.draw_chess();break;
     case OBJECT_SEMISPHERE:Semisphere.draw_chess();break;
     case OBJECT_PLY:Ply.draw_chess();break;
+    case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_chess();break;
     default:break;
     }
   }
@@ -277,8 +289,13 @@ void _gl_widget::draw_objects()
     Light.defineLight0();
     Light.defineLight1();
     switch (Object){
+     case OBJECT_CUBE:Cube.draw_flat_shading();break;
      case OBJECT_CYLINDER:Cylinder.draw_flat_shading();break;
+     case OBJECT_CONE:Cone.draw_flat_shading();break;
      case OBJECT_SPHERE:Sphere.draw_flat_shading();break;
+     case OBJECT_ROBOT:Robot.draw_flat();break;
+     case OBJECT_SEMISPHERE:Semisphere.draw_flat_shading();break;
+     case OBJECT_BOARD:Board.draw_flat_shading();break;
     default:break;
     }
   }
@@ -288,10 +305,63 @@ void _gl_widget::draw_objects()
     Light.defineLight0();
     Light.defineLight1();
     switch (Object){
-     case OBJECT_CYLINDER:Cylinder.draw_smooth_shading();break;
-     case OBJECT_SPHERE:Sphere.draw_smooth_shading();break;
+    case OBJECT_CUBE:Cube.draw_smooth_shading();break;
+    case OBJECT_CYLINDER:Cylinder.draw_smooth_shading();break;
+    case OBJECT_CONE:Cone.draw_smooth_shading();break;
+    case OBJECT_SPHERE:Sphere.draw_smooth_shading();break;
+    case OBJECT_ROBOT:Robot.draw_smooth();break;
+    case OBJECT_SEMISPHERE:Semisphere.draw_smooth_shading();break;
+    case OBJECT_BOARD:Board.draw_smooth_shading();break;
     default:break;
     }
+  }
+
+  if(Draw_texture_unlit){
+      QImage image;
+      switch(Object){
+        case OBJECT_BOARD:
+          image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+          Board.draw_unlit_texture(image);
+        break;
+        case OBJECT_SPHERE:
+          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+          Sphere.draw_unlit_texture(image);
+         break;
+      }
+  }
+
+  if(Draw_texture_light_flat){
+      Light.ActivateLights();
+      Light.defineLight0();
+      Light.defineLight1();
+      QImage image;
+      switch(Object){
+        case OBJECT_BOARD:
+          image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+          Board.draw_texture_flat_shading(image);
+        break;
+        case OBJECT_SPHERE:
+          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+          Sphere.draw_texture_flat_shading(image);
+         break;
+      }
+  }
+
+  if(Draw_texture_light_smooth){
+      Light.ActivateLights();
+      Light.defineLight0();
+      Light.defineLight1();
+      QImage image;
+      switch(Object){
+        case OBJECT_BOARD:
+          image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+          Board.draw_texture_smooth_shading(image);
+        break;
+        case OBJECT_SPHERE:
+          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+          Sphere.draw_texture_smooth_shading(image);
+         break;
+      }
   }
 
 }
@@ -370,6 +440,9 @@ void _gl_widget::initializeGL()
   Draw_chess=false;
   Draw_flat = false;
   Draw_smooth = false;
+  Draw_texture_unlit = false;
+  Draw_texture_light_flat = false;
+  Draw_texture_light_smooth = false;
 
   Timer.setInterval(0);
   connect(&Timer,SIGNAL(timeout()),this,SLOT(tick()));
@@ -438,4 +511,22 @@ void _gl_widget::animation(){
 
     if(Animation==true)Timer.start();
     else Timer.stop();
+}
+
+QImage _gl_widget::loadTexture(char * file){
+// Code for reading an image
+    QString File_name(file);
+    QImage Image;
+    QImageReader Reader(File_name);
+    Reader.setAutoTransform(true);
+    Image = Reader.read();
+    if (Image.isNull()) {
+      QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
+                               tr("Cannot load %1.").arg(QDir::toNativeSeparators(File_name)));
+      exit(-1);
+    }
+    Image=Image.mirrored();
+    Image=Image.convertToFormat(QImage::Format_RGB888);
+
+    return Image;
 }

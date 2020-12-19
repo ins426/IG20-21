@@ -50,3 +50,22 @@ void _elbow::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _elbow::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.085,0);
+    glScalef(0.17,0.17,0.17);
+    Sphere.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _elbow::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.085,0);
+    glScalef(0.17,0.17,0.17);
+    Sphere.draw_smooth_shading();
+    glPopMatrix();
+
+}

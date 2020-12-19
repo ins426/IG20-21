@@ -45,3 +45,20 @@ void _half_hand::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _half_hand::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.2,0.1,0.01);
+    Cube.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _half_hand::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.2,0.1,0.01);
+    Cube.draw_smooth_shading();
+    glPopMatrix();
+
+}

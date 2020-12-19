@@ -5,7 +5,7 @@
 class _sphere: public revolution_object
 {
 public:
-    _sphere(float Size=1.0, int N = 180);
+    _sphere(float Size=2.0, int N =40);
 };
 
 #endif // _SPHERE_H

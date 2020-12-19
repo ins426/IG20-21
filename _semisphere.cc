@@ -14,4 +14,6 @@ _semisphere::_semisphere(float Size, int N)
     Vertices[Vertices.size()-1] = _vertex3f(0,0,0);
 
     crearRevolutionObject(N);
+    calculateNormalTriangles();
+    calculateNormalVertices();
 }

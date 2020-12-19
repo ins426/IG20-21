@@ -14,6 +14,8 @@ public:
     void draw_point();
     void draw_chess();
     void draw_fill();
+    void draw_flat();
+    void draw_smooth();
 
     float positionHand = 0;
     float speedHand = 0.01;

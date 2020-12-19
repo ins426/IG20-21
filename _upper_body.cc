@@ -50,3 +50,24 @@ void _upper_body::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _upper_body::draw_flat(){
+    Torso.draw_flat();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,1,0);
+    Head.draw_flat();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _upper_body::draw_smooth(){
+    Torso.draw_smooth();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,1,0);
+    Head.draw_smooth();
+    glPopMatrix();
+
+}

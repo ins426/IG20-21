@@ -11,7 +11,7 @@
 #define OBJECT3D_H
 
 #include "basic_object3d.h"
-
+#include <QImage>
 
 /*****************************************************************************//**
  *
@@ -27,6 +27,8 @@ class _object3D:public _basic_object3D
   vector<_vertex3f> NormalTriangles;
   vector<_vertex3f> NormalVertices;
 
+  vector<_vertex2f> Texture;
+
   void calculateNormalTriangles();
   void calculateNormalTriangle(_vertex3ui Triangle, _vertex3f &normal);
   void calculateNormalVertices();
@@ -39,6 +41,9 @@ class _object3D:public _basic_object3D
   void draw_chess();
   void draw_flat_shading();
   void draw_smooth_shading();
+  void draw_unlit_texture(QImage Image);
+  void draw_texture_flat_shading(QImage Image);
+  void draw_texture_smooth_shading(QImage Image);
 
 };
 

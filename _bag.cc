@@ -42,3 +42,18 @@ void _bag::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _bag::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(1,1,0.5);
+    Cube.draw_flat_shading();
+    glPopMatrix();
+}
+/*****************************************************************************************/
+void _bag::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(1,1,0.5);
+    Cube.draw_smooth_shading();
+    glPopMatrix();
+}

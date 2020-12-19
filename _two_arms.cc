@@ -78,3 +78,38 @@ void _two_arms::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _two_arms::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    //Right
+    glPushMatrix();
+    glTranslatef(-0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_flat();
+    glPopMatrix();
+
+    //Left
+    glPushMatrix();
+    glTranslatef(0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_flat();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _two_arms::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    //Right
+    glPushMatrix();
+    glTranslatef(-0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_smooth();
+    glPopMatrix();
+
+    //Left
+    glPushMatrix();
+    glTranslatef(0.5,0,0);
+    glRotatef(180,0,0,1);
+    Arm.draw_smooth();
+    glPopMatrix();
+
+}

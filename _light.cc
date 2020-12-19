@@ -32,10 +32,10 @@ void _light::ActivateLights(){
 }
 
 void _light::defineLight0(){
-    GLfloat light0_position[] = {1.0, 1.0, 1.0, 0.0};
-    GLfloat specular0[] = {1.0,1.0,1.0,1.0};
-    GLfloat diffuse0[] = {1.0,1.0,1.0,1.0};
-    GLfloat ambient0[] = {0,0,0,0};
+    GLfloat light0_position[] = {0, 0, 1.0, 0.0 };
+    GLfloat specular0[] = {0.5,0.5,0.5,1.0};
+    GLfloat diffuse0[] = {0.8,0.8,0.8,1.0};
+    GLfloat ambient0[] = {0.25,0.25,0.25,0};
 
     glLightfv(GL_LIGHT0,GL_POSITION,light0_position);
     glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse0);
@@ -44,11 +44,11 @@ void _light::defineLight0(){
 }
 
 void _light::defineLight1(){
-     GLfloat light1_position[] = {1.0, 2.0, 1.0, 1.0};
+     GLfloat light1_position[] = {0, 0.5, 1, 1.0};
 
-     GLfloat specular1[] = {1.0,1.0,1.0,1.0};
+     GLfloat specular1[] = {0.3,0.3,0.3,1.0};
      GLfloat diffuse1[] = {1,0,0.9,1.0};
-     GLfloat ambient1[] = {0,0,0,0};
+     GLfloat ambient1[] = {0.2,0.2,0.2,0};
 
      glMatrixMode(GL_MODELVIEW);
      glPushMatrix();
@@ -69,22 +69,22 @@ void _light::defineMaterial(int N){
     GLfloat material_diffuse[4];
     GLfloat material_ambient[4];
     switch (N) {
-        //Turquoise
+        //Jade
         case 0:
-          material_specular[0] = 0.297254;
-          material_specular[1] = 0.30829;
-          material_specular[2] = 0.306678;
-          material_specular[3] = 1;
+          material_ambient[0] = 0135;
+          material_ambient[1] = 0.225;
+          material_ambient[2] = 0.1575;
+          material_ambient[3] = 1.0f;
 
-          material_diffuse[0] = 0.396;
-          material_diffuse[1] = 0.74151;
-          material_diffuse[2] = 0.69102;
-          material_diffuse[3] = 1;
+          material_diffuse[0] = 0.54;
+          material_diffuse[1] = 0.89;
+          material_diffuse[2] = 0.63;
+          material_diffuse[3] = 1.0f;
 
-          material_ambient[0] = 0.1;
-          material_ambient[1] = 0.18725;
-          material_ambient[2] = 0.1745;
-          material_ambient[3] = 1;
+          material_specular[0] = 0.316228;
+          material_specular[1] = 0.316228;
+          material_specular[2] = 0.316228;
+          material_specular[3] = 1.0f;
         break;
         //Emerald
         case 1:
@@ -124,5 +124,5 @@ void _light::defineMaterial(int N){
     glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,material_diffuse);
     glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,material_specular);
     glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,material_ambient);
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,50);
+    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,120);
 }

@@ -44,3 +44,18 @@ void _forearm::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _forearm::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.17,0.2);
+    Cylinder.draw_flat_shading();
+    glPopMatrix();
+}
+/*****************************************************************************************/
+void _forearm::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.17,0.2);
+    Cylinder.draw_smooth_shading();
+    glPopMatrix();
+}

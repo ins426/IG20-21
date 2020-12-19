@@ -28,6 +28,9 @@
 #include "_whole_arm.h"
 #include <QTimer>
 #include "_light.h"
+#include <QImage>
+#include <QImageReader>
+#include "chess_board.h"
 
 namespace _gl_widget_ne {
 
@@ -41,7 +44,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS} _mode_draw;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_ROBOT, OBJECT_SEMISPHERE} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_REVOLUTIONPLY, OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_ROBOT, OBJECT_SEMISPHERE, OBJECT_BOARD} _object;
 }
 
 class _window;
@@ -68,6 +71,8 @@ public:
 
   void animation();
 
+  QImage loadTexture(char * file);
+
 protected:
   void resizeGL(int Width1, int Height1) Q_DECL_OVERRIDE;
   void paintGL() Q_DECL_OVERRIDE;
@@ -84,7 +89,8 @@ private:
   _tetrahedron Tetrahedron;
   _cube Cube;
   _cylinder Cylinder;
-  _revolution_ply Ply;
+  _ply Ply = _ply("/home/ines/Escritorio/Universidad/3o/IG/Prácticas/ply_models/beethoven.ply");
+  _revolution_ply RevolutionPly;
   _cone Cone;
   _sphere Sphere;
   _semisphere Semisphere;
@@ -93,6 +99,8 @@ private:
 
   _light Light;
   int material = 0;
+
+  chess_board Board;
 
   _object3D Object3d;
 
@@ -120,6 +128,9 @@ private:
   bool Draw_chess;
   bool Draw_flat;
   bool Draw_smooth;
+  bool Draw_texture_unlit;
+  bool Draw_texture_light_flat;
+  bool Draw_texture_light_smooth;
 
   float Observer_angle_x;
   float Observer_angle_y;

@@ -44,3 +44,20 @@ void _leg::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _leg::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.5,0.2);
+    Cylinder.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _leg::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.5,0.2);
+    Cylinder.draw_smooth_shading();
+    glPopMatrix();
+
+}

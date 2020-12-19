@@ -47,3 +47,22 @@ void _lower_torso::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _lower_torso::draw_flat(){
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glRotatef(180,0,0,1);
+    Semisphere.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _lower_torso::draw_smooth(){
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glRotatef(180,0,0,1);
+    Semisphere.draw_smooth_shading();
+    glPopMatrix();
+
+}

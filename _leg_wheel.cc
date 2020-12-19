@@ -61,3 +61,30 @@ void _leg_wheel::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _leg_wheel::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0.15,0.15,0);
+    Wheel.draw_flat();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0,0.15,0);
+    Leg.draw_flat();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _leg_wheel::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0.15,0.15,0);
+    Wheel.draw_smooth();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0,0.15,0);
+    Leg.draw_smooth();
+    glPopMatrix();
+
+}

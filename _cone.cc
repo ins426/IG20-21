@@ -9,5 +9,7 @@ _cone::_cone(float Size, int N)
     Vertices[2]= _vertex3f(0,0,0);
 
     crearRevolutionObject(N);
+    calculateNormalTriangles();
+    calculateNormalVertices();
 
 }

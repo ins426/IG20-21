@@ -47,3 +47,22 @@ void _upper_torso::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _upper_torso::draw_flat(){
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(1,0.5,1);
+    Cylinder.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _upper_torso::draw_smooth(){
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(1,0.5,1);
+    Cylinder.draw_smooth_shading();
+    glPopMatrix();
+
+}

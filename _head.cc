@@ -41,3 +41,18 @@ void _head::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _head::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    Semisphere.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _head::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    Semisphere.draw_smooth_shading();
+    glPopMatrix();
+
+}

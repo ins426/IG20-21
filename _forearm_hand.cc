@@ -83,6 +83,43 @@ void _forearm_hand::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _forearm_hand::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+
+    glPushMatrix();
+    glTranslated(0,0,positionHand);
+    glTranslatef(0,0.22,-0.1);
+    HalfHand.draw_flat();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(0,0,-positionHand);
+    glTranslatef(0,0.22,0.1);
+    HalfHand.draw_flat();
+    glPopMatrix();
+
+    Forearm.draw_flat();
+
+}
+/*****************************************************************************************/
+void _forearm_hand::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+
+    glPushMatrix();
+    glTranslated(0,0,positionHand);
+    glTranslatef(0,0.22,-0.1);
+    HalfHand.draw_smooth();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslated(0,0,-positionHand);
+    glTranslatef(0,0.22,0.1);
+    HalfHand.draw_smooth();
+    glPopMatrix();
+
+    Forearm.draw_smooth();
+}
+/*****************************************************************************************/
 void _forearm_hand::increase_hands(){
     positionHand = positionHand + speedHand;
 }

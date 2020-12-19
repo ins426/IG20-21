@@ -54,6 +54,7 @@ HEADERS += \
   _wheel.h \
   _whole_arm.h \
   _whole_body.h \
+  chess_board.h \
   colors.h \
   basic_object3d.h \
   file_ply_stl.h \
@@ -96,6 +97,7 @@ SOURCES += \
   _whole_arm.cc \
   _whole_body.cc \
   basic_object3d.cc \
+  chess_board.cc \
   file_ply_stl.cc \
   object3d.cc \
   axis.cc \

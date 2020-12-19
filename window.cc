@@ -62,7 +62,7 @@ _window::_window()
   File_menu->addAction(Exit);
   File_menu->setAttribute(Qt::WA_AlwaysShowToolTips);
 
-  setWindowTitle(tr("Práctica 1"));
+  setWindowTitle(tr("Práctica IG Inés Nieto Sánchez"));
 
   resize(800,800);
 }

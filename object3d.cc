@@ -106,6 +106,84 @@ void _object3D::draw_smooth_shading(){
     glEnd();
 }
 
+void _object3D::draw_unlit_texture(QImage Image){
+    glTexImage2D(GL_TEXTURE_2D,0,3,Image.width(),Image.height(),0,GL_RGB,GL_UNSIGNED_BYTE,Image.bits());
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glEnable(GL_TEXTURE_2D);
+    glBegin(GL_TRIANGLES);
+    for (int i = 0; i < Triangles.size(); i++) {
+
+      glTexCoord2f(Texture[Triangles[i]._0].x, Texture[Triangles[i]._0].y);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
+      glTexCoord2f(Texture[Triangles[i]._1].x, Texture[Triangles[i]._1].y);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
+      glTexCoord2f(Texture[Triangles[i]._2].x, Texture[Triangles[i]._2].y);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
+    }
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+}
+
+void _object3D::draw_texture_flat_shading(QImage Image){
+    glTexImage2D(GL_TEXTURE_2D,0,3,Image.width(),Image.height(),0,GL_RGB,GL_UNSIGNED_BYTE,Image.bits());
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glShadeModel(GL_FLAT);
+    glEnable(GL_TEXTURE_2D);
+    glBegin(GL_TRIANGLES);
+    for (int i = 0; i < Triangles.size(); i++) {
+      glNormal3f((GLfloat)NormalTriangles[i]._0,(GLfloat)NormalTriangles[i]._1,(GLfloat)NormalTriangles[i]._2);
+
+      glTexCoord2f(Texture[Triangles[i]._0].x, Texture[Triangles[i]._0].y);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
+      glTexCoord2f(Texture[Triangles[i]._1].x, Texture[Triangles[i]._1].y);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
+      glTexCoord2f(Texture[Triangles[i]._2].x, Texture[Triangles[i]._2].y);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
+    }
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+}
+
+void _object3D::draw_texture_smooth_shading(QImage Image){
+    glTexImage2D(GL_TEXTURE_2D,0,3,Image.width(),Image.height(),0,GL_RGB,GL_UNSIGNED_BYTE,Image.bits());
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_TEXTURE_2D);
+    glBegin(GL_TRIANGLES);
+    for (int i = 0; i < Triangles.size(); i++) {
+
+      glTexCoord2f(Texture[Triangles[i]._0].x, Texture[Triangles[i]._0].y);
+      glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._0]);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
+      glTexCoord2f(Texture[Triangles[i]._1].x, Texture[Triangles[i]._1].y);
+      glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._1]);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
+      glTexCoord2f(Texture[Triangles[i]._2].x, Texture[Triangles[i]._2].y);
+      glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._2]);
+      glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
+    }
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+}
+
 /*****************************************************************************//**
  *
  *

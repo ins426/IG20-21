@@ -64,3 +64,30 @@ void _torso::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _torso::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.5,0);
+    Upper_torso.draw_flat();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0,0.5,0);
+    Lower_torso.draw_flat();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _torso::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.5,0);
+    Upper_torso.draw_smooth();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(0,0.5,0);
+    Lower_torso.draw_smooth();
+    glPopMatrix();
+
+}

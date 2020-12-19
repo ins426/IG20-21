@@ -52,3 +52,26 @@ void _whole_arm::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _whole_arm::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+
+    glPushMatrix();
+    glTranslatef(0,0.17,0);
+    Forearm_elbow.draw_flat();
+    glPopMatrix();
+
+    Shoulder.draw_flat();
+
+}
+/*****************************************************************************************/
+void _whole_arm::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+
+    glPushMatrix();
+    glTranslatef(0,0.17,0);
+    Forearm_elbow.draw_smooth();
+    glPopMatrix();
+
+    Shoulder.draw_smooth();
+
+}

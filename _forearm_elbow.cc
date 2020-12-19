@@ -47,3 +47,22 @@ void _forearm_elbow::draw_chess(){
     Elbow.draw_chess();
 }
 /*****************************************************************************************/
+void _forearm_elbow::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.17,0);
+    Forearm_hand.draw_flat();
+    glPopMatrix();
+
+    Elbow.draw_flat();
+}
+/*****************************************************************************************/
+void _forearm_elbow::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.17,0);
+    Forearm_hand.draw_smooth();
+    glPopMatrix();
+
+    Elbow.draw_smooth();
+}

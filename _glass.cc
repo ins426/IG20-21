@@ -49,3 +49,22 @@ void _glass::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _glass::draw_flat(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glRotatef(90,1,0,0);
+    glScalef(0.5,0.3,0.3);
+    Semisphere.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _glass::draw_smooth(){
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glRotatef(90,1,0,0);
+    glScalef(0.5,0.3,0.3);
+    Semisphere.draw_smooth_shading();
+    glPopMatrix();
+
+}

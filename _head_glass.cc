@@ -50,3 +50,24 @@ void _head_glass::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _head_glass::draw_flat(){
+    Head.draw_flat();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.2,0.35);
+    Glass.draw_flat();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _head_glass::draw_smooth(){
+    Head.draw_smooth();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.2,0.35);
+    Glass.draw_smooth();
+    glPopMatrix();
+
+}

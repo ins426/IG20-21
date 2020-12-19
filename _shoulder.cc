@@ -46,3 +46,22 @@ void _shoulder::draw_chess(){
 
 }
 /*****************************************************************************************/
+void _shoulder::draw_flat(){
+    glColor3fv(((GLfloat *) &MAGENTA));
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.17,0.2);
+    Cylinder.draw_flat_shading();
+    glPopMatrix();
+
+}
+/*****************************************************************************************/
+void _shoulder::draw_smooth(){
+    glColor3fv(((GLfloat *) &MAGENTA));
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glScalef(0.25,0.17,0.2);
+    Cylinder.draw_smooth_shading();
+    glPopMatrix();
+
+}

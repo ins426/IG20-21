@@ -47,3 +47,20 @@ void _robot::draw_chess(){
     glPopMatrix();
 }
 /*****************************************************************************************/
+void _robot::draw_flat(){
+    Body.draw_flat();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.9,-0.5);
+    Bag.draw_flat();
+    glPopMatrix();
+}
+/*****************************************************************************************/
+void _robot::draw_smooth(){
+    Body.draw_smooth();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glTranslatef(0,0.9,-0.5);
+    Bag.draw_smooth();
+    glPopMatrix();
+}

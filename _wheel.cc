@@ -50,3 +50,24 @@ void _wheel::draw_chess()
     glPopMatrix();
 }
 /*****************************************************************************************/
+void _wheel::draw_flat()
+{
+    glColor3fv(((GLfloat *) &BLACK));
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glRotatef(90,0,0,1);
+    glScalef(0.3,0.3,0.3);
+    Cylinder.draw_flat_shading();
+    glPopMatrix();
+}
+/*****************************************************************************************/
+void _wheel::draw_smooth()
+{
+    glColor3fv(((GLfloat *) &BLACK));
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glRotatef(90,0,0,1);
+    glScalef(0.3,0.3,0.3);
+    Cylinder.draw_smooth_shading();
+    glPopMatrix();
+}

@@ -40,4 +40,7 @@ _cube::_cube(float Size)
     Triangles[10]=_vertex3ui(7,6,4);
     Triangles[11]=_vertex3ui(7,4,5);
 
+    calculateNormalTriangles();
+    calculateNormalVertices();
+
 }
