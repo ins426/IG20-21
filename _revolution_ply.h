@@ -7,8 +7,8 @@
 class _revolution_ply: public revolution_object, _ply
 {
 public:
-    _revolution_ply(string File_name = "/home/ines/Escritorio/Universidad/3o/IG/Prácticas/practicas/ply_models/mio.ply");
-    void rota_ply(const string &File_name);
+    _revolution_ply(string File_name = "/home/ines/Documentos/GitHub/IG20-21/ply_models/revolution_ply.ply");
+    void rota_ply(const string &File_name, int N=10);
 };
 
 #endif // _REVOLUTION_PLY_H

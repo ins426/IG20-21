@@ -62,12 +62,11 @@ void revolution_object::crearRevolutionObject(const int N){
 void revolution_object::rotarPuntos(const int N, int num_rotar){
     const float INCREMENTO_ANGULO = DOS_PI/N;
     float angulo = INCREMENTO_ANGULO;
-    int mod = num_rotar;
-    int indice = mod;
+    int indice = num_rotar;
 
     for(int i = 0;i < N-1;i++ ){
         for(int j = 0; j < num_rotar; j++){
-            Vertices[indice] = _vertex3f(Vertices[j%mod].x*cos(angulo),Vertices[j%mod].y,-Vertices[j%mod].x*sin(angulo));
+            Vertices[indice] = _vertex3f(Vertices[j].x*cos(angulo),Vertices[j].y,-Vertices[j].x*sin(angulo));
             indice++;
         }
         angulo += INCREMENTO_ANGULO;

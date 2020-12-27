@@ -89,7 +89,7 @@ private:
   _tetrahedron Tetrahedron;
   _cube Cube;
   _cylinder Cylinder;
-  _ply Ply = _ply("/home/ines/Escritorio/Universidad/3o/IG/Prácticas/ply_models/beethoven.ply");
+  _ply Ply = _ply("/home/ines/Documentos/GitHub/IG20-21/ply_models/beethoven.ply");
   _revolution_ply RevolutionPly;
   _cone Cone;
   _sphere Sphere;

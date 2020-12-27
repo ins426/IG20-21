@@ -203,21 +203,21 @@ void _gl_widget::draw_objects()
   }
 
   if(activateLight0){
-     Light.ActivateLight0();
+     glEnable(GL_LIGHT0);
   }
   else{
-      Light.DesactivateLight0();
+      glDisable(GL_LIGHT0);
   }
 
   if(activateLight1){
-    Light.ActivateLight1();
+    glEnable(GL_LIGHT1);
   }
   else{
-      Light.DesactivateLight1();
+      glDisable(GL_LIGHT1);
   }
 
   if(!Draw_flat && !Draw_smooth)
-      Light.DesactivateLights();
+      glDisable(GL_LIGHTING);
 
   if (Draw_point){
     glPointSize(5);
@@ -285,7 +285,7 @@ void _gl_widget::draw_objects()
   }
 
   if (Draw_flat){
-    Light.ActivateLights();
+    glEnable(GL_LIGHTING);
     Light.defineLight0();
     Light.defineLight1();
     switch (Object){
@@ -301,7 +301,7 @@ void _gl_widget::draw_objects()
   }
 
   if (Draw_smooth){
-    Light.ActivateLights();
+    glEnable(GL_LIGHTING);
     Light.defineLight0();
     Light.defineLight1();
     switch (Object){
@@ -327,38 +327,41 @@ void _gl_widget::draw_objects()
           image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
           Sphere.draw_unlit_texture(image);
          break;
+        case OBJECT_CYLINDER:
+          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+          Cylinder.draw_unlit_texture(image);
       }
   }
 
   if(Draw_texture_light_flat){
-      Light.ActivateLights();
+      glEnable(GL_LIGHTING);
       Light.defineLight0();
       Light.defineLight1();
       QImage image;
       switch(Object){
         case OBJECT_BOARD:
-          image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
           Board.draw_texture_flat_shading(image);
         break;
         case OBJECT_SPHERE:
-          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
           Sphere.draw_texture_flat_shading(image);
          break;
       }
   }
 
   if(Draw_texture_light_smooth){
-      Light.ActivateLights();
+      glEnable(GL_LIGHTING);
       Light.defineLight0();
       Light.defineLight1();
       QImage image;
       switch(Object){
         case OBJECT_BOARD:
-          image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
           Board.draw_texture_smooth_shading(image);
         break;
         case OBJECT_SPHERE:
-          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
           Sphere.draw_texture_smooth_shading(image);
          break;
       }

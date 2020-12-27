@@ -9,7 +9,12 @@ _cylinder::_cylinder(int N, float H, float R)
     Vertices[2] = _vertex3f(0,H,0);
     Vertices[3]= _vertex3f(0,0,0);
 
+    int profile_points = Vertices.size();
+
     crearRevolutionObject(N);
+    //crearRevolutionObjectNoOptimizado(N);
+    //Texture = calculateTextureCoordinate(N,profile_points);
+
     calculateNormalTriangles();
     calculateNormalVertices();
 }

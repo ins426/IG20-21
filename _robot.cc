@@ -14,10 +14,6 @@ void _robot::draw_line(){
     glTranslatef(0,0.9,-0.5);
     Bag.draw_line();
     glPopMatrix();
-
-    glPushMatrix();
-    Body.draw_line();
-    glPopMatrix();
 }
 /*****************************************************************************************/
 void _robot::draw_point(){

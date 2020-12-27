@@ -1,8 +1,7 @@
 #include "_sphere.h"
 
-_sphere::_sphere(float Size, int N )
+_sphere::_sphere(float Size, int N, int numero_puntos )
 {
-    int numero_puntos = 40;
     int indice = 0;
 
     Vertices.resize(numero_puntos);
@@ -15,10 +14,10 @@ _sphere::_sphere(float Size, int N )
 
     int profile_points = Vertices.size();
 
-//     crearRevolutionObject(N);
+    //crearRevolutionObject(N);
 
-    crearRevolutionObjectNoOptimizado(N);
-    Texture = calculateTextureCoordinate(N,profile_points);
+   crearRevolutionObjectNoOptimizado(N);
+   Texture = calculateTextureCoordinate(N,profile_points);
 
     calculateNormalTriangles();
     calculateNormalVertices();

@@ -23,7 +23,7 @@ void _object3D::draw_line()
 {
   glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
   glBegin(GL_TRIANGLES);
-  for (unsigned int i=0;i<Triangles.size();i++){
+  for (int i = 0;i < Triangles.size();i++){
     glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
     glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
     glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
@@ -42,7 +42,7 @@ void _object3D::draw_fill()
 {
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
-    for (unsigned int i=0;i<Triangles.size();i++){
+    for (int i = 0;i < Triangles.size();i++){
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
@@ -61,7 +61,7 @@ void _object3D::draw_chess()
 {
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
-    for (unsigned int i=0;i<Triangles.size();i++){
+    for (int i = 0;i < Triangles.size();i++){
       if(i%2)glColor3fv((GLfloat *) &BLUE);
       else glColor3fv((GLfloat *) &GREEN);
 
@@ -74,13 +74,11 @@ void _object3D::draw_chess()
 }
 
 void _object3D::draw_flat_shading(){
-    //habilitar luces
-    //definir el shading
     glShadeModel(GL_FLAT);
 
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
-    for (unsigned int i=0;i<Triangles.size();i++){
+    for (int i = 0;i < Triangles.size();i++){
       glNormal3f((GLfloat)NormalTriangles[i]._0,(GLfloat)NormalTriangles[i]._1,(GLfloat)NormalTriangles[i]._2);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
@@ -90,12 +88,11 @@ void _object3D::draw_flat_shading(){
 }
 
 void _object3D::draw_smooth_shading(){
-    //definir el shading
     glShadeModel(GL_SMOOTH);
 
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
-    for (unsigned int i=0;i<Triangles.size();i++){
+    for (int i = 0;i < Triangles.size();i++){
       glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._0]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
       glNormal3fv((GLfloat *) &NormalVertices[Triangles[i]._1]);

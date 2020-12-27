@@ -2,7 +2,7 @@
 
 chess_board::chess_board()
 {
-    unsigned int divisions = 1;
+    unsigned int divisions = 3;
     float size = 1.0;
 
     //Calculamos el número de divisiones
