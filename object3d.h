@@ -29,6 +29,8 @@ class _object3D:public _basic_object3D
 
   vector<_vertex2f> Texture;
 
+  int selectedTriangle;
+
   void calculateNormalTriangles();
   void calculateNormalTriangle(_vertex3ui Triangle, _vertex3f &normal);
   void calculateNormalVertices();
@@ -44,6 +46,9 @@ class _object3D:public _basic_object3D
   void draw_unlit_texture(QImage Image);
   void draw_texture_flat_shading(QImage Image);
   void draw_texture_smooth_shading(QImage Image);
+
+  void draw_selection();
+  void selected_Triangle(int Triangle);
 
 };
 

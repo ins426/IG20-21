@@ -40,9 +40,13 @@ void _object3D::draw_line()
 
 void _object3D::draw_fill()
 {
-    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    glPolygonMode(GL_FRONT,GL_FILL);
     glBegin(GL_TRIANGLES);
     for (int i = 0;i < Triangles.size();i++){
+        if( i == selectedTriangle )
+            glColor3fv((GLfloat *) &YEllOW);
+        else
+            glColor3fv((GLfloat *) &BLUE);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
@@ -181,6 +185,31 @@ void _object3D::draw_texture_smooth_shading(QImage Image){
     glDisable(GL_TEXTURE_2D);
 }
 
+void _object3D::draw_selection(){
+//R:0-255
+//G:256-65535
+//B:65536-16777215
+    _vertex3f id;
+    _vertex4f color;
+
+    glPolygonMode(GL_FRONT,GL_FILL);
+    glBegin(GL_TRIANGLES);
+    for(int i = 0; i < Triangles.size();i++){
+        id.r = (float)((i & 0x00FF0000) >> 16);
+        id.g =  (float)( (i & 0x0000FF00) >> 8);
+        id.b =  (float) (i & 0x000000FF);
+        id = id/255.0f;
+
+        color = _vertex4f(id.r,id.g,id.b,1);
+
+        glColor3fv((GLfloat *) &color);
+        glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
+        glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
+        glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);
+    }
+    glEnd();
+
+}
 /*****************************************************************************//**
  *
  *
@@ -291,4 +320,8 @@ void _object3D::calculateVectorProduct(_vertex3f v1, _vertex3f v2, _vertex3f &ve
     for(int i = 0; i < 3; i++){
         vector_product[i] = positive_part[i] - negative_part[i];
     }
+}
+
+void _object3D::selected_Triangle(int Triangle){
+    selectedTriangle = Triangle;
 }

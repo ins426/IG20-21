@@ -122,6 +122,9 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_M:change_material=!change_material;
   break;
 
+  case Qt::Key_C:Projection=PERSPECTIVE_PROJECTION;break;
+  case Qt::Key_V:Projection=PARALLEL_PROJECTION;break;
+
   case Qt::Key_Left:Observer_angle_y-=ANGLE_STEP;break;
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
   case Qt::Key_Up:Observer_angle_x-=ANGLE_STEP;break;
@@ -133,6 +136,64 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   update();
 }
 
+/*****************************************************************************/
+/*****************************************************************************/
+void _gl_widget::mousePressEvent(QMouseEvent *Event){
+    if(Event->buttons() & Qt::RightButton){
+        Selection_position_x = Event->x();
+        Selection_position_y = height() - Event->y();
+    }
+}
+
+void _gl_widget::mouseReleaseEvent(QMouseEvent *Event){
+    if(Draw_fill){
+        if(Event->button() & Qt::RightButton){
+            pick();
+            update();
+        }
+    }
+}
+
+void _gl_widget::mouseMoveEvent(QMouseEvent *Event){
+    if(Event->buttons() & Qt::LeftButton){
+        if(mouseX < Event->x())
+            Observer_angle_y+=ANGLE_STEP;
+        else if (mouseX > Event->x())
+            Observer_angle_y-=ANGLE_STEP;
+        if(mouseY < Event->y())
+            Observer_angle_x+=ANGLE_STEP;
+        else if (mouseY > Event->y())
+            Observer_angle_x-=ANGLE_STEP;
+
+        mouseX = Event->x();
+        mouseY = Event->y();
+    }
+    update();
+}
+
+void _gl_widget::wheelEvent(QWheelEvent *Event){
+    int degrees = Event->delta()/8;
+    int steps = degrees/15;
+
+    if(Projection == PERSPECTIVE_PROJECTION){
+        if(degrees >0){
+            Observer_distance = Observer_distance/(steps*2);
+        }
+        else{
+            Observer_distance = Observer_distance*abs(steps*2);
+        }
+    }else{
+        if(degrees > 0){
+            Observer_distance = Observer_distance/(2*steps);
+        }
+        else{
+          Observer_distance = Observer_distance*abs(2*steps);
+        }
+    }
+
+
+    update();
+}
 
 /*****************************************************************************//**
  * Limpiar ventana
@@ -160,9 +221,19 @@ void _gl_widget::change_projection()
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
 
+  float proportion=(float)Window_height/(float)Window_width;
+  float magnifying = 10.0f;
+
   // formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
   // Front_plane>0  Back_plane>PlanoDelantero)
-  glFrustum(X_MIN,X_MAX,Y_MIN,Y_MAX,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+  //glFrustum(X_MIN,X_MAX,Y_MIN,Y_MAX,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+  if(Projection == PERSPECTIVE_PROJECTION){
+      glFrustum(X_MIN,X_MAX,Y_MIN*proportion, Y_MAX*proportion,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
+  }
+  else{
+    glOrtho(X_MIN*Observer_distance*5.0f, X_MAX*Observer_distance*5.0f,Y_MIN*proportion*magnifying,Y_MAX*proportion*magnifying, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
+  }
+
 }
 
 
@@ -367,6 +438,14 @@ void _gl_widget::draw_objects()
       }
   }
 
+  if(Draw_selection){
+    switch (Object){
+        case OBJECT_TETRAHEDRON:Tetrahedron.draw_selection();break;
+        case OBJECT_PLY:Ply.draw_selection();break;
+    default:break;
+    }
+  }
+
 }
 
 
@@ -396,6 +475,8 @@ void _gl_widget::paintGL()
 
 void _gl_widget::resizeGL(int Width1, int Height1)
 {
+  Window_height = Height1;
+  Window_width = Width1;
   glViewport(0,0,Width1,Height1);
 }
 
@@ -426,12 +507,24 @@ void _gl_widget::initializeGL()
   strm = glGetString(GL_SHADING_LANGUAGE_VERSION);
   std::cerr << "GLSL Version: " << strm << "\n";
 
+  glewExperimental = GL_TRUE;
+  int err = glewInit();
+  if (GLEW_OK != err){
+    std::cerr << "Error: " << glewGetErrorString(err) << "\n";
+      exit (-1);
+   }
+
   int Max_texture_size=0;
   glGetIntegerv(GL_MAX_TEXTURE_SIZE, &Max_texture_size);
   std::cerr << "Max texture size: " << Max_texture_size << "\n";
 
   glClearColor(1.0,1.0,1.0,1.0);
   glEnable(GL_DEPTH_TEST);;
+
+  Window_width=width();
+  Window_height=height();
+
+  selectedTriangle = -1;
 
   Observer_angle_x=0;
   Observer_angle_y=0;
@@ -446,6 +539,7 @@ void _gl_widget::initializeGL()
   Draw_texture_unlit = false;
   Draw_texture_light_flat = false;
   Draw_texture_light_smooth = false;
+  Draw_selection = false;
 
   Timer.setInterval(0);
   connect(&Timer,SIGNAL(timeout()),this,SLOT(tick()));
@@ -462,6 +556,11 @@ void _gl_widget::initializeGL()
   body_direction = true;
 
   Light.defineMaterial(0);
+
+  mouseX = 0;
+  mouseY = 0;
+
+  //Projection == PERSPECTIVE_PROJECTION;
 
   _gl_widget_ne::_object Object = OBJECT_TETRAHEDRON;
 }
@@ -532,4 +631,81 @@ QImage _gl_widget::loadTexture(char * file){
     Image=Image.convertToFormat(QImage::Format_RGB888);
 
     return Image;
+}
+/*************************************************************************************/
+/*************************************************************************************/
+void _gl_widget::pick(){
+    makeCurrent();
+
+      // Frame Buffer Object to do the off-screen rendering
+      GLuint FBO;
+      glGenFramebuffers(1,&FBO);
+      glBindFramebuffer(GL_FRAMEBUFFER,FBO);
+
+      // Texture for drawing
+      GLuint Color_texture;
+      glGenTextures(1,&Color_texture);
+      glBindTexture(GL_TEXTURE_2D,Color_texture);
+      // RGBA8
+      glTexStorage2D(GL_TEXTURE_2D,1,GL_RGBA8, Window_width,Window_height);
+      // this implies that there is not mip mapping
+      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+
+      // Texure for computing the depth
+      GLuint Depth_texture;
+      glGenTextures(1,&Depth_texture);
+      glBindTexture(GL_TEXTURE_2D,Depth_texture);
+      // Float
+      glTexStorage2D(GL_TEXTURE_2D,1,GL_DEPTH_COMPONENT24, Window_width,Window_height);
+
+      // Attatchment of the textures to the FBO
+      glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,Color_texture,0);
+      glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,Depth_texture,0);
+
+      // OpenGL will draw to these buffers (only one in this case)
+      static const GLenum Draw_buffers[]={GL_COLOR_ATTACHMENT0};
+      glDrawBuffers(1,Draw_buffers);
+
+      /*************************/
+      // dibujar escena para seleccion
+      clear_window();
+      change_projection();
+      change_observer();
+
+      switch (Object) {
+        case OBJECT_TETRAHEDRON: Tetrahedron.draw_selection();break;
+        case OBJECT_PLY:Ply.draw_selection();break;
+        default:break;
+      }
+
+      /*************************/
+      // get the pixel
+      int Color;
+      glReadBuffer(GL_FRONT);
+      glPixelStorei(GL_PACK_ALIGNMENT,1);
+      glReadPixels(Selection_position_x,Selection_position_y,1,1,GL_RGBA,GL_UNSIGNED_BYTE,&Color);
+      /*************************/
+
+      // convertir de RGB a identificador
+      unsigned int R = (unsigned int)Color & 0x000000FF;
+      unsigned int G = (unsigned int)((Color & 0x0000FF00)>> 8);
+      unsigned int B =  (unsigned int)((Color & 0x00FF0000)>> 16);
+      // actualizar el identificador de la parte seleccionada en el objeto
+      selectedTriangle = ( R << 16 ) + ( G << 8 ) + B ;
+         if ( selectedTriangle==16777215)
+             selectedTriangle = -1;
+
+      switch (Object) {
+        case OBJECT_TETRAHEDRON: Tetrahedron.selected_Triangle(selectedTriangle);break;
+        case OBJECT_PLY:Ply.selected_Triangle(selectedTriangle);break;
+        default:break;
+      }
+      /*************************/
+
+      glDeleteTextures(1,&Color_texture);
+      glDeleteTextures(1,&Depth_texture);
+      glDeleteFramebuffers(1,&FBO);
+      // the normal framebuffer takes the control of drawing
+      glBindFramebuffer(GL_DRAW_FRAMEBUFFER,defaultFramebufferObject());
 }
