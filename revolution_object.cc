@@ -8,37 +8,39 @@ revolution_object::revolution_object()
 
 //sentido 0: mi sentido
 //sentido 1: al revés
-void revolution_object::crearRevolutionObject(const int N){
+void revolution_object::crearRevolutionObject(const int N, vector<_vertex3f> &generatrix_curve){
     bool tapa_superior = false;
     bool tapa_inferior = false;
     _vertex3f vsuperior;
     _vertex3f vinferior;
-    int num_rotar = Vertices.size();
+    int num_rotar = generatrix_curve.size();
     int sentido = 0;
 
-    if(Vertices[0].x == 0)
+    if(generatrix_curve[0].x == 0)
         sentido = 1;
 
     if(sentido == 1){
-        cambiarSentido();
+        cambiarSentido(generatrix_curve);
     }
 
-    if(Vertices[Vertices.size()-1].x == 0.0){
+    if(generatrix_curve[generatrix_curve.size()-1].x == 0.0){
           tapa_inferior = true;
-          vinferior = Vertices[Vertices.size()-1];
-          Vertices.erase(Vertices.begin()+Vertices.size()-1);
+          vinferior = generatrix_curve[generatrix_curve.size()-1];
+          generatrix_curve.erase(generatrix_curve.begin()+generatrix_curve.size()-1);
      }
 
-    if(Vertices[Vertices.size()-1].x == 0.0){
+    if(generatrix_curve[generatrix_curve.size()-1].x == 0.0){
         tapa_superior = true;
-        vsuperior = Vertices[Vertices.size()-1];
-        Vertices.erase(Vertices.begin()+Vertices.size()-1);
+        vsuperior = generatrix_curve[generatrix_curve.size()-1];
+        generatrix_curve.erase(generatrix_curve.begin()+generatrix_curve.size()-1);
     }
 
-    num_rotar = Vertices.size(); //puntos sin contar tapas
+    num_rotar = generatrix_curve.size(); //puntos sin contar tapas
 
-    Vertices.resize(Vertices.size()*N);
-    rotarPuntos(N,num_rotar);
+    Vertices.resize(generatrix_curve.size()*N);
+
+    rotarPuntos(N,num_rotar, generatrix_curve);
+
     if(num_rotar > 1){
         Triangles.resize((num_rotar-1)*N*2);
         crearCara(N,num_rotar);
@@ -53,20 +55,24 @@ void revolution_object::crearRevolutionObject(const int N){
 
     if(tapa_inferior){
         Vertices.resize(Vertices.size()+1);
-         Vertices[Vertices.size()-1] = vinferior;
-         Triangles.resize(N+Triangles.size());
-         crearTapaInferior(N,num_rotar);
+        Vertices[Vertices.size()-1] = vinferior;
+        Triangles.resize(N+Triangles.size());
+        crearTapaInferior(N,num_rotar);
      }
 }
 
-void revolution_object::rotarPuntos(const int N, int num_rotar){
+void revolution_object::rotarPuntos(const int N, int num_rotar,  vector<_vertex3f> generatrix_curve){
     const float INCREMENTO_ANGULO = DOS_PI/N;
     float angulo = INCREMENTO_ANGULO;
     int indice = num_rotar;
 
+    for(int i = 0; i < num_rotar; i++){
+        Vertices[i] = generatrix_curve[i];
+    }
+
     for(int i = 0;i < N-1;i++ ){
         for(int j = 0; j < num_rotar; j++){
-            Vertices[indice] = _vertex3f(Vertices[j].x*cos(angulo),Vertices[j].y,-Vertices[j].x*sin(angulo));
+            Vertices[indice] = _vertex3f(generatrix_curve[j].x*cos(angulo),generatrix_curve[j].y,-generatrix_curve[j].x*sin(angulo));
             indice++;
         }
         angulo += INCREMENTO_ANGULO;
@@ -104,19 +110,19 @@ void revolution_object::crearTapaInferior(int N,int num_rotar){
     }
 }
 
-void revolution_object::cambiarSentido(){
-    int num_intercambios = Vertices.size()/2;
+void revolution_object::cambiarSentido(vector<_vertex3f> &generatrix_curve){
+    int num_intercambios = generatrix_curve.size()/2;
 
     for(int i = 0; i < num_intercambios;i++){
         _vertex3f aux = Vertices[i];
-        Vertices[i] = Vertices[Vertices.size()-1-i];
-        Vertices[Vertices.size()-1-i] = aux;
+        generatrix_curve[i] = generatrix_curve[generatrix_curve.size()-1-i];
+        generatrix_curve[generatrix_curve.size()-1-i] = aux;
     }
 }
 
 /**************************************************************************************************/
 /*************************************************************************************************/
-void revolution_object::crearRevolutionObjectNoOptimizado(const int N){
+void revolution_object::crearRevolutionObjectNoOptimizado(const int N, vector<_vertex3f> &generatrix_curve){
     bool tapa_superior = false;
     bool tapa_inferior = false;
     vector<_vertex3f> vsuperior;
@@ -128,7 +134,7 @@ void revolution_object::crearRevolutionObjectNoOptimizado(const int N){
         sentido = 1;
 
     if(sentido == 1){
-        cambiarSentido();
+        cambiarSentido(generatrix_curve);
     }
 
      if(Vertices[Vertices.size()-1].x == 0.0)

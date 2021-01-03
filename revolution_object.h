@@ -9,16 +9,16 @@ class revolution_object: virtual public _object3D
 {
 public:
     revolution_object();
-    void crearRevolutionObject(const int N);
-    void rotarPuntos(const int N, int num_rotar);
+    void crearRevolutionObject(const int N, vector<_vertex3f> &generatrix_curve );
+    void rotarPuntos(const int N, int num_rotar, vector<_vertex3f> generatrix_curve);
     void rotarPuntosRepetidos(const int N, int num_rotar);
     void crearCara(const int N, int num_rotar);
     void crearTapaSuperior(const int N, int num_rotar);
     void crearTapaInferior(int N,int num_rotar);
 
-    void cambiarSentido();
+    void cambiarSentido(vector<_vertex3f> &generatrix_curve);
 
-    void crearRevolutionObjectNoOptimizado(const int N);
+    void crearRevolutionObjectNoOptimizado(const int N, vector<_vertex3f> &generatrix_curve);
     void crearTapaSuperiorRepetida(const int N, int num_rotar);
     void crearCaraRepetida(const int N, int num_rotar);
     void crearTapaInferiorRepetida(const int N, int num_rotar);

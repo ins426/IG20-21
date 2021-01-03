@@ -40,7 +40,7 @@ void _object3D::draw_line()
 
 void _object3D::draw_fill()
 {
-    glPolygonMode(GL_FRONT,GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
     for (int i = 0;i < Triangles.size();i++){
         if( i == selectedTriangle )
@@ -117,6 +117,7 @@ void _object3D::draw_unlit_texture(QImage Image){
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
     glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < Triangles.size(); i++) {
 
@@ -142,6 +143,7 @@ void _object3D::draw_texture_flat_shading(QImage Image){
 
     glShadeModel(GL_FLAT);
     glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < Triangles.size(); i++) {
       glNormal3f((GLfloat)NormalTriangles[i]._0,(GLfloat)NormalTriangles[i]._1,(GLfloat)NormalTriangles[i]._2);
@@ -168,6 +170,7 @@ void _object3D::draw_texture_smooth_shading(QImage Image){
 
     glShadeModel(GL_SMOOTH);
     glEnable(GL_TEXTURE_2D);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
     for (int i = 0; i < Triangles.size(); i++) {
 
@@ -192,7 +195,7 @@ void _object3D::draw_selection(){
     _vertex3f id;
     _vertex4f color;
 
-    glPolygonMode(GL_FRONT,GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
     for(int i = 0; i < Triangles.size();i++){
         id.r = (float)((i & 0x00FF0000) >> 16);

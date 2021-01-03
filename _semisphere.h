@@ -2,6 +2,7 @@
 #define _SEMISPHERE_H
 
 #include "revolution_object.h"
+
 class _semisphere: public revolution_object
 {
 public:

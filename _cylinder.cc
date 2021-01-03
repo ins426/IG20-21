@@ -2,16 +2,17 @@
 
 _cylinder::_cylinder(int N, float H, float R)
 {
-    Vertices.resize(4);
+    vector<_vertex3f> generatrix_curve;
+    generatrix_curve.resize(4);
 
-    Vertices[0] = _vertex3f(R,0,0);
-    Vertices[1] = _vertex3f(R,H,0);
-    Vertices[2] = _vertex3f(0,H,0);
-    Vertices[3]= _vertex3f(0,0,0);
+    generatrix_curve[0] = _vertex3f(R,0,0);
+    generatrix_curve[1] = _vertex3f(R,H,0);
+    generatrix_curve[2] = _vertex3f(0,H,0);
+    generatrix_curve[3]= _vertex3f(0,0,0);
 
-    int profile_points = Vertices.size();
+    int profile_points = generatrix_curve.size();
 
-    crearRevolutionObject(N);
+    crearRevolutionObject(N,generatrix_curve);
     //crearRevolutionObjectNoOptimizado(N);
     //Texture = calculateTextureCoordinate(N,profile_points);
 

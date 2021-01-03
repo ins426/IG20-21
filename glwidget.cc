@@ -60,12 +60,9 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       if(Robot.Body.angleArms > MIN_ARM)
           Robot.Body.decrease_arms();
       break;
-  case Qt::Key_E:
-      Robot.Body.increaseSpeed_arm();
-      break;
-  case Qt::Key_R:
-      Robot.Body.decreaseSpeed_arm();
-      break;
+  case Qt::Key_E:Robot.Body.increaseSpeed_arm();break;
+  case Qt::Key_R:Robot.Body.decreaseSpeed_arm();break;
+
   //2nd degree of freedom
   case Qt::Key_S:
       if(Robot.Body.Arms.Arm.Forearm_elbow.Forearm_hand.positionHand < MAX_HAND)
@@ -79,6 +76,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       Robot.Body.Arms.Arm.Forearm_elbow.Forearm_hand.increaseSpeed_hands();break;
   case Qt::Key_Y:
       Robot.Body.Arms.Arm.Forearm_elbow.Forearm_hand.decreaseSpeed_hands();break;
+
   //3rd degree of freedom
   case Qt::Key_Z:
       if(Robot.Body.Body_legs.angleBody < MAX_BODY)
@@ -88,31 +86,20 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
       if(Robot.Body.Body_legs.angleBody > MIN_BODY)
           Robot.Body.Body_legs.decrease_body();
       break;
-  case Qt::Key_U:
-      Robot.Body.Body_legs.increaseSpeed_body();
-      break;
-  case Qt::Key_I:
-      Robot.Body.Body_legs.decreaseSpeed_body();
-      break;
+  case Qt::Key_U:Robot.Body.Body_legs.increaseSpeed_body();break;
+  case Qt::Key_I:Robot.Body.Body_legs.decreaseSpeed_body();break;
 
-  case Qt::Key_P:Draw_point=!Draw_point;
-  break;
-  case Qt::Key_L:Draw_line=!Draw_line;
-  break;
-  case Qt::Key_F:Draw_fill=!Draw_fill;
-  break;
-  case Qt::Key_F2:Draw_chess=!Draw_chess;
-  break;
-  case Qt::Key_F3:Draw_flat=!Draw_flat;
-  break;
-  case Qt::Key_F4:Draw_smooth=!Draw_smooth;
-  break;
-  case Qt::Key_F5:Draw_texture_unlit=!Draw_texture_unlit;
-  break;
-  case Qt::Key_F6:Draw_texture_light_flat=!Draw_texture_light_flat;
-  break;
-  case Qt::Key_F7:Draw_texture_light_smooth=!Draw_texture_light_smooth;
-  break;
+  case Qt::Key_P:Draw_point=!Draw_point;break;
+  case Qt::Key_L:Draw_line=!Draw_line;break;
+  case Qt::Key_F:Draw_fill=!Draw_fill;break;
+
+  case Qt::Key_F1:Mode_solid = MODE_SOLID;break;
+  case Qt::Key_F2:Mode_solid = MODE_SOLID_CHESS;break;
+  case Qt::Key_F3:Mode_solid = MODE_SOLID_FLAT_SHADING;break;
+  case Qt::Key_F4:Mode_solid = MODE_SOLID_SMOOTH_SHADING;break;
+  case Qt::Key_F5:Mode_solid = MODE_SOLID_TEXTURE;break;
+  case Qt::Key_F6:Mode_solid = MODE_SOLID_LIGHT_FLAT_TEXTURE;break;
+  case Qt::Key_F7:Mode_solid = MODE_SOLID_LIGHT_SMOOTH_TEXTURE;break;
 
   case Qt::Key_J:activateLight0=!activateLight0;
   break;
@@ -129,8 +116,22 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_Right:Observer_angle_y+=ANGLE_STEP;break;
   case Qt::Key_Up:Observer_angle_x-=ANGLE_STEP;break;
   case Qt::Key_Down:Observer_angle_x+=ANGLE_STEP;break;
-  case Qt::Key_PageUp:Observer_distance*=1.2;break;
-  case Qt::Key_PageDown:Observer_distance/=1.2;break;
+  case Qt::Key_PageUp:
+      if(Projection == PARALLEL_PROJECTION){
+          multiplier*=1.2;
+      }
+      else{
+        Observer_distance*=1.2;
+      };
+  break;
+  case Qt::Key_PageDown:
+      if(Projection == PARALLEL_PROJECTION){
+          multiplier/=1.2;
+      }
+      else{
+        Observer_distance/=1.2;
+      };
+  break;
   }
 
   update();
@@ -184,14 +185,12 @@ void _gl_widget::wheelEvent(QWheelEvent *Event){
         }
     }else{
         if(degrees > 0){
-            Observer_distance = Observer_distance/(2*steps);
+           multiplier/=2;
         }
         else{
-          Observer_distance = Observer_distance*abs(2*steps);
+          multiplier*=2;
         }
     }
-
-
     update();
 }
 
@@ -222,7 +221,6 @@ void _gl_widget::change_projection()
   glLoadIdentity();
 
   float proportion=(float)Window_height/(float)Window_width;
-  float magnifying = 10.0f;
 
   // formato(x_minimo,x_maximo, y_minimo, y_maximo,Front_plane, plano_traser)
   // Front_plane>0  Back_plane>PlanoDelantero)
@@ -231,7 +229,7 @@ void _gl_widget::change_projection()
       glFrustum(X_MIN,X_MAX,Y_MIN*proportion, Y_MAX*proportion,FRONT_PLANE_PERSPECTIVE,BACK_PLANE_PERSPECTIVE);
   }
   else{
-    glOrtho(X_MIN*Observer_distance*5.0f, X_MAX*Observer_distance*5.0f,Y_MIN*proportion*magnifying,Y_MAX*proportion*magnifying, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
+    glOrtho(X_MIN*multiplier, X_MAX*multiplier,Y_MIN*proportion*multiplier,Y_MAX*proportion*multiplier, FRONT_PLANE_PERSPECTIVE, BACK_PLANE_PERSPECTIVE);
   }
 
 }
@@ -287,9 +285,6 @@ void _gl_widget::draw_objects()
       glDisable(GL_LIGHT1);
   }
 
-  if(!Draw_flat && !Draw_smooth)
-      glDisable(GL_LIGHTING);
-
   if (Draw_point){
     glPointSize(5);
     glColor3fv((GLfloat *) &BLACK);
@@ -325,126 +320,122 @@ void _gl_widget::draw_objects()
     }
   }
 
-  if (Draw_fill){
-    glColor3fv((GLfloat *) &BLUE);
-    switch (Object){
-    case OBJECT_TETRAHEDRON:Tetrahedron.draw_fill();break;
-    case OBJECT_CUBE:Cube.draw_fill();break;
-    case OBJECT_CYLINDER:Cylinder.draw_fill();break;
-    case OBJECT_CONE:Cone.draw_fill();break;
-    case OBJECT_SPHERE:Sphere.draw_fill();break;
-    case OBJECT_PLY:Ply.draw_fill();break;
-    case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_fill();break;
-    case OBJECT_ROBOT:Robot.draw_fill();break;
-    case OBJECT_SEMISPHERE:Semisphere.draw_fill();break;
-    }
-  }
-
-  if (Draw_chess){
-    switch (Object){
-    case OBJECT_TETRAHEDRON:Tetrahedron.draw_chess();break;
-    case OBJECT_CUBE:Cube.draw_chess();break;
-    case OBJECT_CYLINDER:Cylinder.draw_chess();break;
-    case OBJECT_CONE:Cone.draw_chess();break;
-    case OBJECT_SPHERE:Sphere.draw_chess();break;
-    case OBJECT_ROBOT:Robot.draw_chess();break;
-    case OBJECT_SEMISPHERE:Semisphere.draw_chess();break;
-    case OBJECT_PLY:Ply.draw_chess();break;
-    case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_chess();break;
-    default:break;
-    }
-  }
-
-  if (Draw_flat){
-    glEnable(GL_LIGHTING);
-    Light.defineLight0();
-    Light.defineLight1();
-    switch (Object){
-     case OBJECT_CUBE:Cube.draw_flat_shading();break;
-     case OBJECT_CYLINDER:Cylinder.draw_flat_shading();break;
-     case OBJECT_CONE:Cone.draw_flat_shading();break;
-     case OBJECT_SPHERE:Sphere.draw_flat_shading();break;
-     case OBJECT_ROBOT:Robot.draw_flat();break;
-     case OBJECT_SEMISPHERE:Semisphere.draw_flat_shading();break;
-     case OBJECT_BOARD:Board.draw_flat_shading();break;
-    default:break;
-    }
-  }
-
-  if (Draw_smooth){
-    glEnable(GL_LIGHTING);
-    Light.defineLight0();
-    Light.defineLight1();
-    switch (Object){
-    case OBJECT_CUBE:Cube.draw_smooth_shading();break;
-    case OBJECT_CYLINDER:Cylinder.draw_smooth_shading();break;
-    case OBJECT_CONE:Cone.draw_smooth_shading();break;
-    case OBJECT_SPHERE:Sphere.draw_smooth_shading();break;
-    case OBJECT_ROBOT:Robot.draw_smooth();break;
-    case OBJECT_SEMISPHERE:Semisphere.draw_smooth_shading();break;
-    case OBJECT_BOARD:Board.draw_smooth_shading();break;
-    default:break;
-    }
-  }
-
-  if(Draw_texture_unlit){
-      QImage image;
-      switch(Object){
+  if(Draw_fill){
+      switch (Mode_solid) {
+      case MODE_SOLID:
+          glColor3fv((GLfloat *) &BLUE);
+          switch (Object){
+          case OBJECT_TETRAHEDRON:Tetrahedron.draw_fill();break;
+          case OBJECT_CUBE:Cube.draw_fill();break;
+          case OBJECT_CYLINDER:Cylinder.draw_fill();break;
+          case OBJECT_CONE:Cone.draw_fill();break;
+          case OBJECT_SPHERE:Sphere.draw_fill();break;
+          case OBJECT_PLY:Ply.draw_fill();break;
+          case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_fill();break;
+          case OBJECT_ROBOT:Robot.draw_fill();break;
+          case OBJECT_SEMISPHERE:Semisphere.draw_fill();break;
+          default:break;
+          }
+      break;
+      case MODE_SOLID_CHESS:
+          switch (Object){
+          case OBJECT_TETRAHEDRON:Tetrahedron.draw_chess();break;
+          case OBJECT_CUBE:Cube.draw_chess();break;
+          case OBJECT_CYLINDER:Cylinder.draw_chess();break;
+          case OBJECT_CONE:Cone.draw_chess();break;
+          case OBJECT_SPHERE:Sphere.draw_chess();break;
+          case OBJECT_ROBOT:Robot.draw_chess();break;
+          case OBJECT_SEMISPHERE:Semisphere.draw_chess();break;
+          case OBJECT_PLY:Ply.draw_chess();break;
+          case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_chess();break;
+          default:break;
+          }
+      break;
+      case MODE_SOLID_FLAT_SHADING:
+          glEnable(GL_LIGHTING);
+          Light.defineLight0();
+          Light.defineLight1();
+          switch (Object){
+           case OBJECT_CUBE:Cube.draw_flat_shading();break;
+           case OBJECT_CYLINDER:Cylinder.draw_flat_shading();break;
+           case OBJECT_CONE:Cone.draw_flat_shading();break;
+           case OBJECT_SPHERE:Sphere.draw_flat_shading();break;
+           case OBJECT_ROBOT:Robot.draw_flat();break;
+           case OBJECT_SEMISPHERE:Semisphere.draw_flat_shading();break;
+           case OBJECT_BOARD:Board.draw_flat_shading();break;
+           default:break;
+          }
+          glDisable(GL_LIGHTING);
+      break;
+      case MODE_SOLID_SMOOTH_SHADING:
+          glEnable(GL_LIGHTING);
+          Light.defineLight0();
+          Light.defineLight1();
+          switch (Object){
+          case OBJECT_CUBE:Cube.draw_smooth_shading();break;
+          case OBJECT_CYLINDER:Cylinder.draw_smooth_shading();break;
+          case OBJECT_CONE:Cone.draw_smooth_shading();break;
+          case OBJECT_SPHERE:Sphere.draw_smooth_shading();break;
+          case OBJECT_ROBOT:Robot.draw_smooth();break;
+          case OBJECT_SEMISPHERE:Semisphere.draw_smooth_shading();break;
+          case OBJECT_BOARD:Board.draw_smooth_shading();break;
+          default:break;
+          }
+          glDisable(GL_LIGHTING);
+      break;
+      case MODE_SOLID_TEXTURE:
+          switch(Object){
+          case OBJECT_BOARD:
+            image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+            Board.draw_unlit_texture(image);
+          break;
+          case OBJECT_SPHERE:
+            image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+            Sphere.draw_unlit_texture(image);
+          break;
+          case OBJECT_CYLINDER:
+            image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+            Cylinder.draw_unlit_texture(image);
+          break;
+          default:break;
+          }
+      break;
+      case MODE_SOLID_LIGHT_FLAT_TEXTURE:
+          glEnable(GL_LIGHTING);
+          Light.defineLight0();
+          Light.defineLight1();
+          switch(Object){
+          case OBJECT_BOARD:
+            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
+            Board.draw_texture_flat_shading(image);
+          break;
+          case OBJECT_SPHERE:
+            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
+            Sphere.draw_texture_flat_shading(image);
+          break;
+          }
+      break;
+      case MODE_SOLID_LIGHT_SMOOTH_TEXTURE:
+        glEnable(GL_LIGHTING);
+        Light.defineLight0();
+        Light.defineLight1();
+        switch(Object){
         case OBJECT_BOARD:
-          image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
-          Board.draw_unlit_texture(image);
+            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
+            Board.draw_texture_smooth_shading(image);
         break;
         case OBJECT_SPHERE:
-          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
-          Sphere.draw_unlit_texture(image);
-         break;
-        case OBJECT_CYLINDER:
-          image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
-          Cylinder.draw_unlit_texture(image);
+            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
+            Sphere.draw_texture_smooth_shading(image);
+        break;
+        }
+      break;
+      default:break;
       }
   }
 
-  if(Draw_texture_light_flat){
-      glEnable(GL_LIGHTING);
-      Light.defineLight0();
-      Light.defineLight1();
-      QImage image;
-      switch(Object){
-        case OBJECT_BOARD:
-          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
-          Board.draw_texture_flat_shading(image);
-        break;
-        case OBJECT_SPHERE:
-          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
-          Sphere.draw_texture_flat_shading(image);
-         break;
-      }
-  }
 
-  if(Draw_texture_light_smooth){
-      glEnable(GL_LIGHTING);
-      Light.defineLight0();
-      Light.defineLight1();
-      QImage image;
-      switch(Object){
-        case OBJECT_BOARD:
-          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
-          Board.draw_texture_smooth_shading(image);
-        break;
-        case OBJECT_SPHERE:
-          image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
-          Sphere.draw_texture_smooth_shading(image);
-         break;
-      }
-  }
 
-  if(Draw_selection){
-    switch (Object){
-        case OBJECT_TETRAHEDRON:Tetrahedron.draw_selection();break;
-        case OBJECT_PLY:Ply.draw_selection();break;
-    default:break;
-    }
-  }
 
 }
 
@@ -507,19 +498,14 @@ void _gl_widget::initializeGL()
   strm = glGetString(GL_SHADING_LANGUAGE_VERSION);
   std::cerr << "GLSL Version: " << strm << "\n";
 
-  glewExperimental = GL_TRUE;
-  int err = glewInit();
-  if (GLEW_OK != err){
-    std::cerr << "Error: " << glewGetErrorString(err) << "\n";
-      exit (-1);
-   }
+  glewInit();
 
   int Max_texture_size=0;
   glGetIntegerv(GL_MAX_TEXTURE_SIZE, &Max_texture_size);
   std::cerr << "Max texture size: " << Max_texture_size << "\n";
 
   glClearColor(1.0,1.0,1.0,1.0);
-  glEnable(GL_DEPTH_TEST);;
+  glEnable(GL_DEPTH_TEST);
 
   Window_width=width();
   Window_height=height();
@@ -533,13 +519,7 @@ void _gl_widget::initializeGL()
   Draw_point=true;
   Draw_line=false;
   Draw_fill=false;
-  Draw_chess=false;
-  Draw_flat = false;
-  Draw_smooth = false;
-  Draw_texture_unlit = false;
-  Draw_texture_light_flat = false;
-  Draw_texture_light_smooth = false;
-  Draw_selection = false;
+
 
   Timer.setInterval(0);
   connect(&Timer,SIGNAL(timeout()),this,SLOT(tick()));
@@ -559,10 +539,11 @@ void _gl_widget::initializeGL()
 
   mouseX = 0;
   mouseY = 0;
+  multiplier = 10;
 
-  //Projection == PERSPECTIVE_PROJECTION;
-
-  _gl_widget_ne::_object Object = OBJECT_TETRAHEDRON;
+  Object = OBJECT_TETRAHEDRON;
+  Mode_solid = MODE_SOLID;
+  Projection = PERSPECTIVE_PROJECTION;
 }
 
 /*************************************************************************************/
@@ -674,8 +655,14 @@ void _gl_widget::pick(){
       change_observer();
 
       switch (Object) {
-        case OBJECT_TETRAHEDRON: Tetrahedron.draw_selection();break;
-        case OBJECT_PLY:Ply.draw_selection();break;
+      case OBJECT_TETRAHEDRON:Tetrahedron.draw_selection();break;
+      case OBJECT_CUBE:Cube.draw_selection();break;
+      case OBJECT_CONE:Cone.draw_selection();break;
+      case OBJECT_CYLINDER:Cylinder.draw_selection();break;
+      case OBJECT_SPHERE:Sphere.draw_selection();break;
+      case OBJECT_PLY:Ply.draw_selection();break;
+      case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_selection();break;
+      case OBJECT_SEMISPHERE:Semisphere.draw_selection();break;
         default:break;
       }
 
@@ -697,9 +684,15 @@ void _gl_widget::pick(){
              selectedTriangle = -1;
 
       switch (Object) {
-        case OBJECT_TETRAHEDRON: Tetrahedron.selected_Triangle(selectedTriangle);break;
-        case OBJECT_PLY:Ply.selected_Triangle(selectedTriangle);break;
-        default:break;
+      case OBJECT_TETRAHEDRON:Tetrahedron.selected_Triangle(selectedTriangle);break;
+      case OBJECT_CUBE:Cube.selected_Triangle(selectedTriangle);break;
+      case OBJECT_CONE:Cone.selected_Triangle(selectedTriangle);break;
+      case OBJECT_CYLINDER:Cylinder.selected_Triangle(selectedTriangle);break;
+      case OBJECT_SPHERE:Sphere.selected_Triangle(selectedTriangle);break;
+      case OBJECT_PLY:Ply.selected_Triangle(selectedTriangle);break;
+      case OBJECT_REVOLUTIONPLY:RevolutionPly.selected_Triangle(selectedTriangle);break;
+      case OBJECT_SEMISPHERE:Semisphere.selected_Triangle(selectedTriangle);break;
+      default:break;
       }
       /*************************/
 

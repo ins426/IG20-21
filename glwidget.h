@@ -46,7 +46,7 @@ namespace _gl_widget_ne {
   const float ANGLE_STEP=1;
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS, MODE_DRAW_SELECTION} _mode_draw;
-  typedef enum {MODE_SOLID, MODE_SOLID_CHESS, MODE_LIGHT_FLAT_SHADING, MODE_LIGHT_SMOOTH_SHADING, MODE_TEXTURE, MODE_LIGHT_FLAT_TEXTURE, MODE_LIGHT_SMOOTH_TEXTURE} _mode_solid ;
+  typedef enum {MODE_SOLID, MODE_SOLID_CHESS, MODE_SOLID_FLAT_SHADING, MODE_SOLID_SMOOTH_SHADING, MODE_SOLID_TEXTURE,MODE_SOLID_LIGHT_FLAT_TEXTURE, MODE_SOLID_LIGHT_SMOOTH_TEXTURE} _mode_solid;
   typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_REVOLUTIONPLY, OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_ROBOT, OBJECT_SEMISPHERE, OBJECT_BOARD} _object;
   typedef enum {PARALLEL_PROJECTION, PERSPECTIVE_PROJECTION} _projection ;
 }
@@ -137,13 +137,6 @@ private:
   bool Draw_point;
   bool Draw_line;
   bool Draw_fill;
-  bool Draw_chess;
-  bool Draw_flat;
-  bool Draw_smooth;
-  bool Draw_texture_unlit;
-  bool Draw_texture_light_flat;
-  bool Draw_texture_light_smooth;
-  bool Draw_selection;
 
   QImage image;
 
@@ -156,9 +149,9 @@ private:
 
   int Selection_position_x;
   int Selection_position_y;
-
   int mouseX;
   int mouseY;
+  float multiplier;
 
   int Window_width;
   int Window_height;
