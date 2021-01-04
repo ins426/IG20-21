@@ -33,6 +33,7 @@
 #include <QImage>
 #include <QImageReader>
 #include "chess_board.h"
+#include "matrix_plys.h"
 
 namespace _gl_widget_ne {
 
@@ -47,7 +48,7 @@ namespace _gl_widget_ne {
 
   typedef enum {MODE_DRAW_POINT,MODE_DRAW_LINE,MODE_DRAW_FILL,MODE_DRAW_CHESS, MODE_DRAW_SELECTION} _mode_draw;
   typedef enum {MODE_SOLID, MODE_SOLID_CHESS, MODE_SOLID_FLAT_SHADING, MODE_SOLID_SMOOTH_SHADING, MODE_SOLID_TEXTURE,MODE_SOLID_LIGHT_FLAT_TEXTURE, MODE_SOLID_LIGHT_SMOOTH_TEXTURE} _mode_solid;
-  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_REVOLUTIONPLY, OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_ROBOT, OBJECT_SEMISPHERE, OBJECT_BOARD} _object;
+  typedef enum {OBJECT_TETRAHEDRON,OBJECT_CUBE,OBJECT_PLY,OBJECT_REVOLUTIONPLY, OBJECT_CYLINDER,OBJECT_CONE,OBJECT_SPHERE, OBJECT_ROBOT, OBJECT_SEMISPHERE, OBJECT_BOARD, OBJECT_PLYS} _object;
   typedef enum {PARALLEL_PROJECTION, PERSPECTIVE_PROJECTION} _projection ;
 }
 
@@ -111,6 +112,8 @@ private:
   int material = 0;
 
   chess_board Board;
+
+  matrix_plys Plys = matrix_plys(Ply);
 
   _object3D Object3d;
 

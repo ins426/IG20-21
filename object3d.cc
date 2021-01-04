@@ -38,15 +38,19 @@ void _object3D::draw_line()
  *
  *****************************************************************************/
 
-void _object3D::draw_fill()
+void _object3D::draw_fill(bool paintTriangle)
 {
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glBegin(GL_TRIANGLES);
     for (int i = 0;i < Triangles.size();i++){
-        if( i == selectedTriangle )
+      if(paintTriangle == true){
+          if( i == selectedTriangle ){
             glColor3fv((GLfloat *) &YEllOW);
-        else
-            glColor3fv((GLfloat *) &BLUE);
+          }
+          else {
+              glColor3fv((GLfloat *) &BLUE);
+          }
+      }
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._0]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._1]);
       glVertex3fv((GLfloat *) &Vertices[Triangles[i]._2]);

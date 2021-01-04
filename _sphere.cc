@@ -17,7 +17,7 @@ _sphere::_sphere(float Size, int N, int numero_puntos )
 
     crearRevolutionObject(N,generatrix_curve);
 
-//   crearRevolutionObjectNoOptimizado(N);
+//   crearRevolutionObjectNoOptimizado(N, generatrix_curve);
 //   Texture = calculateTextureCoordinate(N,profile_points);
 
     calculateNormalTriangles();

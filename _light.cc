@@ -37,39 +37,39 @@ void _light::defineMaterial(int N){
     GLfloat material_diffuse[4];
     GLfloat material_ambient[4];
     switch (N) {
-        //Blue
+        //White
         case 0:
           material_ambient[0] = 0.0f;
           material_ambient[1] = 0.0f;
           material_ambient[2] = 0.0f;
-          material_ambient[3] = 1.0f;
+          material_ambient[3] = 1;
 
-          material_diffuse[0] = 0.0f;
-          material_diffuse[1] = 0.0f;
+          material_diffuse[0] = 1.0f;
+          material_diffuse[1] = 1.0f;
           material_diffuse[2] = 1.0f;
-          material_diffuse[3] = 1.0f;
+          material_diffuse[3] = 1;
 
-          material_specular[0] = 0.7f;
-          material_specular[1] = 0.0f;
+          material_specular[0] = 1.0f;
+          material_specular[1] = 1.0f;
           material_specular[2] = 1.0f;
-          material_specular[3] = 1.0f;
+          material_specular[3] = 1;
         break;
-        //White
+        //Blue
         case 1:
             material_ambient[0] = 0.0f;
             material_ambient[1] = 0.0f;
             material_ambient[2] = 0.0f;
-            material_ambient[3] = 1;
+            material_ambient[3] = 1.0f;
 
-            material_diffuse[0] = 1.0f;
-            material_diffuse[1] = 1.0f;
+            material_diffuse[0] = 0.0f;
+            material_diffuse[1] = 0.0f;
             material_diffuse[2] = 1.0f;
-            material_diffuse[3] = 1;
+            material_diffuse[3] = 1.0f;
 
-            material_specular[0] = 1.0f;
-            material_specular[1] = 1.0f;
+            material_specular[0] = 0.7f;
+            material_specular[1] = 0.0f;
             material_specular[2] = 1.0f;
-            material_specular[3] = 1;
+            material_specular[3] = 1.0f;
         break;
         //Pink
         case 2:

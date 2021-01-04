@@ -58,6 +58,7 @@ HEADERS += \
   colors.h \
   basic_object3d.h \
   file_ply_stl.h \
+  matrix_plys.h \
   object3d.h \
   axis.h \
   revolution_object.h \
@@ -99,6 +100,7 @@ SOURCES += \
   basic_object3d.cc \
   chess_board.cc \
   file_ply_stl.cc \
+  matrix_plys.cc \
   object3d.cc \
   axis.cc \
   revolution_object.cc \

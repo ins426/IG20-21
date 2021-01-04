@@ -29,7 +29,7 @@ class _object3D:public _basic_object3D
 
   vector<_vertex2f> Texture;
 
-  int selectedTriangle;
+  int selectedTriangle = -1;
 
   void calculateNormalTriangles();
   void calculateNormalTriangle(_vertex3ui Triangle, _vertex3f &normal);
@@ -39,7 +39,7 @@ class _object3D:public _basic_object3D
   void calculateVectorModule(_vertex3f v, float &module);
 
   void draw_line();
-  void draw_fill();
+  void draw_fill(bool paintTriangle = true);
   void draw_chess();
   void draw_flat_shading();
   void draw_smooth_shading();

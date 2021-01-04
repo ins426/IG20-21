@@ -17,5 +17,6 @@ void _revolution_ply::rota_ply(const string &File_name, int N){
 
  Vertices.clear();
  crearRevolutionObject(N, generatrix_curve);
+
 }
 /*****************************************************************************************/

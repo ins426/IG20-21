@@ -47,7 +47,8 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_7:Object=OBJECT_ROBOT;break;
   case Qt::Key_8:Object=OBJECT_BOARD;break;
   case Qt::Key_9:Object=OBJECT_SEMISPHERE;break;
-  case Qt::Key_0:Object=OBJECT_REVOLUTIONPLY;break;
+  //case Qt::Key_0:Object=OBJECT_REVOLUTIONPLY;break;
+  case Qt::Key_0:Object=OBJECT_PLYS;break;
 
   case Qt::Key_A:animation();break;
 
@@ -323,7 +324,6 @@ void _gl_widget::draw_objects()
   if(Draw_fill){
       switch (Mode_solid) {
       case MODE_SOLID:
-          glColor3fv((GLfloat *) &BLUE);
           switch (Object){
           case OBJECT_TETRAHEDRON:Tetrahedron.draw_fill();break;
           case OBJECT_CUBE:Cube.draw_fill();break;
@@ -332,6 +332,7 @@ void _gl_widget::draw_objects()
           case OBJECT_SPHERE:Sphere.draw_fill();break;
           case OBJECT_PLY:Ply.draw_fill();break;
           case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_fill();break;
+          case OBJECT_PLYS:Plys.draw_fill();break;
           case OBJECT_ROBOT:Robot.draw_fill();break;
           case OBJECT_SEMISPHERE:Semisphere.draw_fill();break;
           default:break;
@@ -414,6 +415,7 @@ void _gl_widget::draw_objects()
             Sphere.draw_texture_flat_shading(image);
           break;
           }
+          glDisable(GL_LIGHTING);
       break;
       case MODE_SOLID_LIGHT_SMOOTH_TEXTURE:
         glEnable(GL_LIGHTING);
@@ -429,6 +431,7 @@ void _gl_widget::draw_objects()
             Sphere.draw_texture_smooth_shading(image);
         break;
         }
+        glDisable(GL_LIGHTING);
       break;
       default:break;
       }
@@ -661,6 +664,7 @@ void _gl_widget::pick(){
       case OBJECT_CYLINDER:Cylinder.draw_selection();break;
       case OBJECT_SPHERE:Sphere.draw_selection();break;
       case OBJECT_PLY:Ply.draw_selection();break;
+      case OBJECT_PLYS:Plys.draw_selection();break;
       case OBJECT_REVOLUTIONPLY:RevolutionPly.draw_selection();break;
       case OBJECT_SEMISPHERE:Semisphere.draw_selection();break;
         default:break;
@@ -690,6 +694,7 @@ void _gl_widget::pick(){
       case OBJECT_CYLINDER:Cylinder.selected_Triangle(selectedTriangle);break;
       case OBJECT_SPHERE:Sphere.selected_Triangle(selectedTriangle);break;
       case OBJECT_PLY:Ply.selected_Triangle(selectedTriangle);break;
+      case OBJECT_PLYS:Plys.selectedPly(selectedTriangle);break;
       case OBJECT_REVOLUTIONPLY:RevolutionPly.selected_Triangle(selectedTriangle);break;
       case OBJECT_SEMISPHERE:Semisphere.selected_Triangle(selectedTriangle);break;
       default:break;

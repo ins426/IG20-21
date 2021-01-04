@@ -130,23 +130,23 @@ void revolution_object::crearRevolutionObjectNoOptimizado(const int N, vector<_v
     int num_rotar_total;
     int sentido = 0;
 
-    if(Vertices[0].x == 0)
+    if(generatrix_curve[0].x == 0)
         sentido = 1;
 
     if(sentido == 1){
         cambiarSentido(generatrix_curve);
     }
 
-     if(Vertices[Vertices.size()-1].x == 0.0)
+     if(generatrix_curve[generatrix_curve.size()-1].x == 0.0)
         tapa_inferior = true;
 
-     if(Vertices[Vertices.size()-2].x == 0.0)
+     if(generatrix_curve[generatrix_curve.size()-2].x == 0.0)
         tapa_superior = true;
 
-    num_rotar_total = Vertices.size();
+    num_rotar_total = generatrix_curve.size();
 
-    Vertices.resize(Vertices.size()*(N+1));
-    rotarPuntosRepetidos(N,num_rotar_total);
+    Vertices.resize(generatrix_curve.size()*(N+1));
+    rotarPuntosRepetidos(N,num_rotar_total, generatrix_curve);
 
     int puntos_cara = num_rotar_total;
 
@@ -186,15 +186,18 @@ void revolution_object::crearRevolutionObjectNoOptimizado(const int N, vector<_v
      }
 }
 
-void revolution_object::rotarPuntosRepetidos(const int N, int num_rotar){
+void revolution_object::rotarPuntosRepetidos(const int N, int num_rotar,  vector<_vertex3f> &generatrix_curve){
     const float INCREMENTO_ANGULO = DOS_PI/N;
     float angulo = INCREMENTO_ANGULO;
     int mod = num_rotar;
-    int indice = mod;
+    int indice = num_rotar;
+
+    for(int i = 0; i < generatrix_curve.size();i++)
+        Vertices[i] = generatrix_curve[i];
 
     for(int i = 0;i < N;i++ ){
         for(int j = 0; j < num_rotar; j++){
-            Vertices[indice] = _vertex3f(Vertices[j%mod].x*cos(angulo),Vertices[j%mod].y,-Vertices[j%mod].x*sin(angulo));
+            Vertices[indice] = _vertex3f(generatrix_curve[j%mod].x*cos(angulo),generatrix_curve[j%mod].y,-generatrix_curve[j%mod].x*sin(angulo));
             indice++;
         }
         angulo += INCREMENTO_ANGULO;
