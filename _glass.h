@@ -2,12 +2,24 @@
 #define _GLASS_H
 
 #include "_semisphere.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _glass
 {
 public:
-    _glass();
     _semisphere Semisphere;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _glass
+*/
+    _glass();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_line();
     void draw_point();
     void draw_chess();

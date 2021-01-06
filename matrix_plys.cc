@@ -14,7 +14,7 @@ matrix_plys::matrix_plys(_ply Ply)
         }
     }
 }
-
+/***********************************************************************/
 void matrix_plys::draw_fill(){
     int distance = 10;
     int contador = 0;
@@ -36,7 +36,7 @@ void matrix_plys::draw_fill(){
         }
     }
 }
-
+/***********************************************************************/
 void matrix_plys::draw_selection(){
 //R:0-255
 //G:256-65535
@@ -69,7 +69,7 @@ void matrix_plys::draw_selection(){
     }
     glEnd();
 }
-
+/***********************************************************************/
 void matrix_plys::selectedPly(int id){
     selected_ply = id;
 }

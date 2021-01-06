@@ -4,13 +4,13 @@ _light::_light()
 {
 
 }
-
+/***********************************************************************/
 void _light::defineLight0(){
     GLfloat light0_position[] = {0, 0, 1.0, 0.0 };
 
     glLightfv(GL_LIGHT0,GL_POSITION,light0_position);
 }
-
+/***********************************************************************/
 void _light::defineLight1(){
      GLfloat light1_position[] = {0, 1, 1, 1.0};
 
@@ -27,11 +27,11 @@ void _light::defineLight1(){
      glLightfv(GL_LIGHT1,GL_SPECULAR,specular1);
      glLightfv(GL_LIGHT1,GL_AMBIENT,ambient1);
 }
-
+/***********************************************************************/
 void _light::moveLight1(){
     angle_light1+=1;
 }
-
+/***********************************************************************/
 void _light::defineMaterial(int N){
     GLfloat material_specular[4];
     GLfloat material_diffuse[4];

@@ -2,12 +2,24 @@
 #define _TWO_ARMS_H
 
 #include "_whole_arm.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _two_arms
 {
 public:
-    _two_arms();
     _whole_arm Arm;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _two_arms
+*/
+    _two_arms();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_line();
     void draw_point();
     void draw_chess();

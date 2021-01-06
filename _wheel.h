@@ -2,12 +2,24 @@
 #define _WHEEL_H
 
 #include "_cylinder.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _wheel
 {
 public:
-    _wheel();
     _cylinder Cylinder;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _wheel
+*/
+    _wheel();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_point();
     void draw_line();
     void draw_chess();

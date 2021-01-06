@@ -2,12 +2,24 @@
 #define _ELBOW_H
 
 #include "_sphere.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _elbow
 {
 public:
-    _elbow();
     _sphere Sphere;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _elbow
+*/
+    _elbow();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_point();
     void draw_line();
     void draw_chess();

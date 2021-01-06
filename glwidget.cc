@@ -46,8 +46,7 @@ void _gl_widget::keyPressEvent(QKeyEvent *Keyevent)
   case Qt::Key_6:Object=OBJECT_PLY;break;
   case Qt::Key_7:Object=OBJECT_ROBOT;break;
   case Qt::Key_8:Object=OBJECT_BOARD;break;
-  case Qt::Key_9:Object=OBJECT_SEMISPHERE;break;
-  //case Qt::Key_0:Object=OBJECT_REVOLUTIONPLY;break;
+  case Qt::Key_9:Object=OBJECT_REVOLUTIONPLY;break;
   case Qt::Key_0:Object=OBJECT_PLYS;break;
 
   case Qt::Key_A:animation();break;
@@ -158,14 +157,23 @@ void _gl_widget::mouseReleaseEvent(QMouseEvent *Event){
 
 void _gl_widget::mouseMoveEvent(QMouseEvent *Event){
     if(Event->buttons() & Qt::LeftButton){
-        if(mouseX < Event->x())
+        if(mouseX < Event->x()){
             Observer_angle_y+=ANGLE_STEP;
-        else if (mouseX > Event->x())
-            Observer_angle_y-=ANGLE_STEP;
-        if(mouseY < Event->y())
+        }
+        else{
+            if (mouseX > Event->x()){
+                Observer_angle_y-=ANGLE_STEP;
+            }
+        }
+
+        if(mouseY < Event->y()){
             Observer_angle_x+=ANGLE_STEP;
-        else if (mouseY > Event->y())
-            Observer_angle_x-=ANGLE_STEP;
+        }
+        else{
+            if (mouseY > Event->y()){
+                Observer_angle_x-=ANGLE_STEP;
+            }
+        }
 
         mouseX = Event->x();
         mouseY = Event->y();
@@ -387,15 +395,15 @@ void _gl_widget::draw_objects()
       case MODE_SOLID_TEXTURE:
           switch(Object){
           case OBJECT_BOARD:
-            image = loadTexture((char *)"/home/ines/Descargas/chess.jpg");
+            image = loadTexture((char *)"../texturas/chess.jpg");
             Board.draw_unlit_texture(image);
           break;
           case OBJECT_SPHERE:
-            image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+            image = loadTexture((char *)"../texturas/dia_8192.jpg");
             Sphere.draw_unlit_texture(image);
           break;
           case OBJECT_CYLINDER:
-            image = loadTexture((char *)"/home/ines/Descargas/texturas/dia_8192.jpg");
+            image = loadTexture((char *)"../texturas/dia_8192.jpg");
             Cylinder.draw_unlit_texture(image);
           break;
           default:break;
@@ -407,12 +415,16 @@ void _gl_widget::draw_objects()
           Light.defineLight1();
           switch(Object){
           case OBJECT_BOARD:
-            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
+            image = loadTexture((char *)"../texturas/chess.jpg");
             Board.draw_texture_flat_shading(image);
           break;
           case OBJECT_SPHERE:
-            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
+            image = loadTexture((char *)"../texturas/dia_8192.jpg");
             Sphere.draw_texture_flat_shading(image);
+          break;
+          case OBJECT_CYLINDER:
+            image = loadTexture((char *)"../texturas/dia_8192.jpg");
+            Cylinder.draw_texture_flat_shading(image);
           break;
           }
           glDisable(GL_LIGHTING);
@@ -423,12 +435,16 @@ void _gl_widget::draw_objects()
         Light.defineLight1();
         switch(Object){
         case OBJECT_BOARD:
-            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/chess.jpg");
+            image = loadTexture((char *)"../texturas/chess.jpg");
             Board.draw_texture_smooth_shading(image);
         break;
         case OBJECT_SPHERE:
-            image = loadTexture((char *)"/home/ines/Documentos/GitHub/IG20-21/texturas/dia_8192.jpg");
+            image = loadTexture((char *)"../texturas/dia_8192.jpg");
             Sphere.draw_texture_smooth_shading(image);
+        break;
+        case OBJECT_CYLINDER:
+          image = loadTexture((char *)"../texturas/dia_8192.jpg");
+          Cylinder.draw_texture_smooth_shading(image);
         break;
         }
         glDisable(GL_LIGHTING);

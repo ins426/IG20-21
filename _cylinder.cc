@@ -13,7 +13,7 @@ _cylinder::_cylinder(int N, float H, float R)
     int profile_points = generatrix_curve.size();
 
     crearRevolutionObject(N,generatrix_curve);
-    //crearRevolutionObjectNoOptimizado(N);
+    //crearRevolutionObjectNoOptimizado(N,generatrix_curve);
     //Texture = calculateTextureCoordinate(N,profile_points);
 
     calculateNormalTriangles();

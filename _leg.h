@@ -2,12 +2,24 @@
 #define _LEG_H
 
 #include "_cylinder.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _leg
 {
 public:
-    _leg();
     _cylinder Cylinder;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _leg
+*/
+    _leg();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_line();
     void draw_point();
     void draw_chess();

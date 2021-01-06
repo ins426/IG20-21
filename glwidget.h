@@ -74,10 +74,23 @@ public:
   void draw_axis();
   void draw_objects();
 
+/***********************************************************************/
+/**
+* @brief Activa y desactiva la animación del objeto jerárquico
+*/
   void animation();
 
+/***********************************************************************/
+/**
+* @brief Carga la textura del archivo file
+* @param file, nombre del archivo del que se tomará la textura
+*/
   QImage loadTexture(char * file);
 
+/***********************************************************************/
+/**
+* @brief Obtiene la id del objeto seleccionado con el ratón a través de la selección por color
+*/
   void pick();
 
 protected:
@@ -100,7 +113,7 @@ private:
   _tetrahedron Tetrahedron;
   _cube Cube;
   _cylinder Cylinder;
-  _ply Ply = _ply("/home/ines/Documentos/GitHub/IG20-21/ply_models/beethoven.ply");
+  _ply Ply = _ply("../ply_models/beethoven.ply");
   _revolution_ply RevolutionPly;
   _cone Cone;
   _sphere Sphere;

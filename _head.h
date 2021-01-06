@@ -2,12 +2,24 @@
 #define _HEAD_H
 
 #include "_semisphere.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _head
 {
 public:
-    _head();
     _semisphere Semisphere;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _head
+*/
+    _head();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
      void draw_line();
      void draw_point();
      void draw_chess();

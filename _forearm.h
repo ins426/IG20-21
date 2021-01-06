@@ -2,12 +2,24 @@
 #define _FOREARM_H
 
 #include "_cylinder.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _forearm
 {
 public:
-    _forearm();
     _cylinder Cylinder;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _forearm
+*/
+    _forearm();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_line();
     void draw_point();
     void draw_chess();

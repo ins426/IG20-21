@@ -60,7 +60,7 @@ void revolution_object::crearRevolutionObject(const int N, vector<_vertex3f> &ge
         crearTapaInferior(N,num_rotar);
      }
 }
-
+/***********************************************************************/
 void revolution_object::rotarPuntos(const int N, int num_rotar,  vector<_vertex3f> generatrix_curve){
     const float INCREMENTO_ANGULO = DOS_PI/N;
     float angulo = INCREMENTO_ANGULO;
@@ -78,7 +78,7 @@ void revolution_object::rotarPuntos(const int N, int num_rotar,  vector<_vertex3
         angulo += INCREMENTO_ANGULO;
     }
 }
-
+/***********************************************************************/
 void revolution_object::crearCara(const int N, int num_rotar){
     int indice = 0;
     int k;
@@ -93,7 +93,7 @@ void revolution_object::crearCara(const int N, int num_rotar){
         }
     }
 }
-
+/***********************************************************************/
 void revolution_object::crearTapaSuperior(int N,int num_rotar){
     int indice = Triangles.size()-N;
 
@@ -101,7 +101,7 @@ void revolution_object::crearTapaSuperior(int N,int num_rotar){
         Triangles[indice] = _vertex3ui(i,(i+num_rotar)%(Vertices.size()-1),Vertices.size()-1);
     }
 }
-
+/***********************************************************************/
 void revolution_object::crearTapaInferior(int N,int num_rotar){
     int indice = Triangles.size()-N;
 
@@ -109,7 +109,7 @@ void revolution_object::crearTapaInferior(int N,int num_rotar){
         Triangles[indice] = _vertex3ui((i+num_rotar)%(Vertices.size()-2),i%Vertices.size(), Vertices.size()-1);
     }
 }
-
+/***********************************************************************/
 void revolution_object::cambiarSentido(vector<_vertex3f> &generatrix_curve){
     int num_intercambios = generatrix_curve.size()/2;
 
@@ -185,7 +185,7 @@ void revolution_object::crearRevolutionObjectNoOptimizado(const int N, vector<_v
         crearTapaInferiorRepetida(N,num_rotar_total);
      }
 }
-
+/***********************************************************************/
 void revolution_object::rotarPuntosRepetidos(const int N, int num_rotar,  vector<_vertex3f> &generatrix_curve){
     const float INCREMENTO_ANGULO = DOS_PI/N;
     float angulo = INCREMENTO_ANGULO;
@@ -203,7 +203,7 @@ void revolution_object::rotarPuntosRepetidos(const int N, int num_rotar,  vector
         angulo += INCREMENTO_ANGULO;
     }
 }
-
+/***********************************************************************/
 void revolution_object::crearTapaSuperiorRepetida(const int N, int num_rotar){
     int indice = Triangles.size()-N;
     int vsuperior = Vertices.size()-N-1;
@@ -213,7 +213,7 @@ void revolution_object::crearTapaSuperiorRepetida(const int N, int num_rotar){
         vsuperior++;
     }
 }
-
+/***********************************************************************/
 void revolution_object::crearTapaInferiorRepetida(const int N, int num_rotar){
     int indice = Triangles.size()-N;
     int vinferior = Vertices.size()-N-1;
@@ -223,7 +223,7 @@ void revolution_object::crearTapaInferiorRepetida(const int N, int num_rotar){
         vinferior++;
     }
 }
-
+/***********************************************************************/
 void revolution_object::crearCaraRepetida(const int N, int num_rotar){
     int indice = 0;
     int k;
@@ -238,7 +238,7 @@ void revolution_object::crearCaraRepetida(const int N, int num_rotar){
         }
     }
 }
-
+/***********************************************************************/
 vector<_vertex2f> revolution_object::calculateTextureCoordinate(const int N, int profile_points){
     vector<_vertex2f> Texture;
     vector<float> distances;
@@ -249,12 +249,12 @@ vector<_vertex2f> revolution_object::calculateTextureCoordinate(const int N, int
     Texture.resize(Vertices.size());
 
     calculateFaceTextureCoordinate(N,profile_points,Texture,distances);
-        calculateTapaTextureCoordinate((profile_points-2)*(N+1),N, profile_points ,Texture,distances);
-     calculateTapaTextureCoordinate((profile_points-2)*(N+1)+N+1,N,profile_points ,Texture,distances);
+    calculateTapaTextureCoordinate((profile_points-2)*(N+1),N, profile_points ,Texture,distances);
+    calculateTapaTextureCoordinate((profile_points-2)*(N+1)+N+1,N,profile_points ,Texture,distances);
 
     return Texture;
 }
-
+/***********************************************************************/
 void revolution_object::calculateFaceTextureCoordinate(const int N, int profile_points, vector<_vertex2f> &Texture, vector<float> distances){
     int indice = 0;
     float s;
@@ -271,7 +271,7 @@ void revolution_object::calculateFaceTextureCoordinate(const int N, int profile_
            }
        }
 }
-
+/***********************************************************************/
 void revolution_object::calculateTapaTextureCoordinate(int start, const int N, int profile_points, vector<_vertex2f> &Texture, vector<float> distances){
     float s;
     float t;
@@ -285,7 +285,7 @@ void revolution_object::calculateTapaTextureCoordinate(int start, const int N, i
         start++;
     }
 }
-
+/***********************************************************************/
 float revolution_object::calculateDistance(_vertex3f v1, _vertex3f v2){
     _vertex3f v;
     float module;
@@ -297,7 +297,7 @@ float revolution_object::calculateDistance(_vertex3f v1, _vertex3f v2){
 
     return module;
 }
-
+/***********************************************************************/
 void revolution_object::calculateVerticesDistance(vector<float>&distances, int N, int profile_points){
     int puntos_sin_tapa = profile_points-2;
 

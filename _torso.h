@@ -3,13 +3,25 @@
 
 #include "_upper_torso.h"
 #include "_lower_torso.h"
+/**
+  * @author Inés Nieto Sánchez
+**/
 class _torso
 {
 public:
-    _torso();
     _upper_torso Upper_torso;
     _lower_torso Lower_torso;
 
+/***********************************************************************/
+/**
+* @brief Constructor sin parámetros. Crea un objeto _body_legs
+*/
+    _torso();
+
+/***********************************************************************/
+/**
+* @brief Funciones para los distintos modos de dibujado
+*/
     void draw_line();
     void draw_point();
     void draw_chess();
